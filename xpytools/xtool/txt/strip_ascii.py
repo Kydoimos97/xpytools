@@ -1,5 +1,7 @@
 from __future__ import annotations
+
 import re
+
 
 def strip_ascii(text: str, keep_basic_symbols: bool = True) -> str:
     """
@@ -15,7 +17,7 @@ def strip_ascii(text: str, keep_basic_symbols: bool = True) -> str:
     Returns
     -------
     str
-        ASCII-only text.
+        ASCII-only txt.
     """
     if not isinstance(text, str):
         return str(text or "")

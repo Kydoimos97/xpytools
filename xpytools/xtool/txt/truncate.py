@@ -1,8 +1,9 @@
 from __future__ import annotations
 
+
 def truncate(text: str, limit: int = 120, suffix: str = "…") -> str:
     """
-    Truncate text safely and append ellipsis if needed.
+    Truncate txt safely and append ellipsis if needed.
 
     Parameters
     ----------

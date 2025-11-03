@@ -1,12 +1,13 @@
 from __future__ import annotations
 
+
 def pad(
-    text: str,
-    width: int = 20,
-    align: str = "left",
-    fillchar: str = " ",
-    truncate: bool = True,
-) -> str:
+        text: str,
+        width: int = 20,
+        align: str = "left",
+        fillchar: str = " ",
+        truncate: bool = True,
+        ) -> str:
     """
     Pad (and optionally truncate) a string to a fixed width.
 

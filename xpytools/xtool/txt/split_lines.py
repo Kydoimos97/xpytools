@@ -1,10 +1,12 @@
 from __future__ import annotations
+
 from textwrap import wrap
 from typing import List
 
+
 def split_lines(text: str, width: int = 80) -> List[str]:
     """
-    Split text into fixed-width lines without breaking words.
+    Split txt into fixed-width lines without breaking words.
 
     Parameters
     ----------
