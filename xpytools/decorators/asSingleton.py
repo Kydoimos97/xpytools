@@ -18,8 +18,9 @@ def asSingleton(cls: type) -> type:
     """
     if "__new__" in cls.__dict__:
         raise _SingletonViolationException(cls)
-    if "__cls_instance" in cls.__dict__:
-        raise _SingletonViolationException(cls)
+    for attr in cls.__dict__:
+        if attr.endswith("__cls_instance") or attr == "__cls_instance":
+            raise _SingletonViolationException(cls)
 
     class SingletonWrapper(cls):
         __cls_instance = None

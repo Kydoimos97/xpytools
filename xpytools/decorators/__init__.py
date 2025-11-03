@@ -14,10 +14,10 @@ Provides:
 
 from __future__ import annotations
 
-from .requireModules import requireModules
 from .asSingleton import asSingleton
+from .requireModules import requireModules
 
 __all__ = [
-    "requireModules",
-    "asSingleton",
-]
+        "requireModules",
+        "asSingleton",
+        ]
