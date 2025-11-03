@@ -27,7 +27,7 @@ def _vUUIDFactory():
         >>> UUIDLike("550e8400-e29b-41d4-a716-446655440000")
         '550e8400-e29b-41d4-a716-446655440000'
 
-        >>> from pydantic import BaseModel
+        >>> from xpyt_pydantic import BaseModel
         >>> class Model(BaseModel):
         ...     run_id: UUIDLike
         >>> Model(run_id="550e8400-e29b-41d4-a716-446655440000")
