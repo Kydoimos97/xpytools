@@ -48,7 +48,7 @@ def _LiteralEnumType(*choices: T):
         ValueError: 'baz' is not one of ('foo', 'bar')
 
     Works with Pydantic models:
-        >>> from pydantic import BaseModel
+        >>> from xpyt_pydantic import BaseModel
         >>> class Example(BaseModel):
         ...     kind: _LiteralEnumType("a", "b")
         >>> Example(kind="a")
@@ -135,6 +135,7 @@ if __name__ == "__main__":
     from .IntLiteral import IntLiteral
     from .FloatLiteral import FloatLiteral
     from .AnyTLiteral import AnyTLiteral
+
     MyStrLit = StrLiteral("foo", "bar")
     MyIntLit = IntLiteral(1, 2, 3)
     MyFloatLit = FloatLiteral(1.5, 2.5)

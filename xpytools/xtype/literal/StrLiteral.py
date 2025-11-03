@@ -38,7 +38,7 @@ def StrLiteral(*choices: str) -> type[str]:
         ValueError: 'yellow' is not one of ('red', 'green', 'blue')
 
     Integration with Pydantic:
-        >>> from pydantic import BaseModel
+        >>> from xpyt_pydantic import BaseModel
         >>> class Item(BaseModel):
         ...     color: Color
         >>> Item(color="green")
