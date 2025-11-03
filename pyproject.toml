@@ -48,8 +48,13 @@ packages = ["xpytools"]
 
 [dependency-groups]
 dev = [
+    "clean-text>=0.6.0",
     "mypy>=1.18.2",
+    "mypy-boto3-s3>=1.40.61",
+    "openai>=2.6.1",
     "pandas>=2.3.3",
+    "pillow>=12.0.0",
     "pytest>=8.4.2",
     "pytest-cov>=7.0.0",
+    "tiktoken>=0.12.0",
 ]
