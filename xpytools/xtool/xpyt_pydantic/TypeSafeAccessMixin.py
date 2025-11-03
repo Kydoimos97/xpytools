@@ -3,7 +3,7 @@
 #  Licensed under the MIT License (https://opensource.org/license/mit).
 
 """
-xpytools.utils.pydantic.type_safe_access_mixin
+xpytools.xtool.xpyt_pydantic.type_safe_access_mixin
 ----------------------------------------------
 Provides type-safe attribute access and coercion for Pydantic v2 models.
 
@@ -12,15 +12,14 @@ Features
 - Early coercion of UUID, Enum, str, dict, and datetime fields.
 - Safe serialization for nested Pydantic models.
 - JSON-safe conversion compatible with `xpytools.Typing.Cast` and `to_primitives`.
-- Independent of WrenchCL or external project dependencies.
 
 Usage
 -----
-    from pydantic import BaseModel
+    from xpyt_pydantic import BaseModel
     from uuid import UUID, uuid4
     from enum import Enum
     from datetime import datetime
-    from xpytools.utils.pydantic import TypeSafeAccessMixin
+    from xpytools.xtool.xpyt_pydantic import TypeSafeAccessMixin
 
     class StatusEnum(Enum):
         ACTIVE = "active"
@@ -47,12 +46,12 @@ from uuid import UUID
 
 from pydantic import BaseModel, model_validator
 
-from ...types.cast import (
+from ...xtype.cast import (
     as_str,
     as_datetime_str,
     )
-from ...types.cast.to_primitives import to_primitives
-from ...types.check import is_none, is_list_like, is_dict
+from ...xtype.cast.to_primitives import to_primitives
+from ...xtype.check import is_none, is_list_like, is_dict
 
 
 class TypeSafeAccessMixin:
@@ -78,8 +77,8 @@ class TypeSafeAccessMixin:
         - Converts JSON-like strings to dicts
         - Normalizes None-like values
         """
-        from ...types.cast import as_json
-        from ...types.check import is_uuid, is_json_like
+        from ...xtype.cast import as_json
+        from ...xtype.check import is_uuid, is_json_like
 
         coerced = {}
         for key, val in values.items():
@@ -112,10 +111,10 @@ class TypeSafeAccessMixin:
         """Return all attributes in JSON-safe form."""
         exclude_fields = exclude_fields or []
         return {
-            attr: self.get_type_safe_attr(attr)
-            for attr in self.__dict__
-            if attr not in exclude_fields
-        }
+                attr: self.get_type_safe_attr(attr)
+                for attr in self.__dict__
+                if attr not in exclude_fields
+                }
 
     def get_type_safe_attr(self, item: str) -> Any:
         """Retrieve a single attribute, safely coerced for serialization."""
