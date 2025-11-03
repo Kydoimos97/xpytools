@@ -30,7 +30,8 @@ jobs:
         run: |
           uv venv .venv
           source .venv/bin/activate
-          uv pip install -e ".[all]"
+          uv sync --all-groups
+          uv pip install -e
 
       - name: Run pytest with coverage
         run: |
