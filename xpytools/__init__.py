@@ -15,7 +15,8 @@ import sys as _sys
 # ----------------------------------------------------------------------
 # Normal imports
 # ----------------------------------------------------------------------
-from . import xtype, decorators, xtool as xpyt
+from . import xtype, decorators
+from . import xtool as xpyt
 
 check = xtype.check
 cast = xtype.cast
