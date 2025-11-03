@@ -1,7 +1,7 @@
 import re
 from typing import Optional, TYPE_CHECKING
 
-from ...types.check import is_df
+from ...xtype.check import is_df
 
 if TYPE_CHECKING:
     from pandas import DataFrame as pdDataFrame

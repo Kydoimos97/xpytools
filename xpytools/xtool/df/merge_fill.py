@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import Optional, TYPE_CHECKING
 
 from ._handlers import _check_df
-from ...types.literal import StrLiteral
+from ...xtype.literal import StrLiteral
 
 if TYPE_CHECKING:
     from pandas import DataFrame as pdDataFrame

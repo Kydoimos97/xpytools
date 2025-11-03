@@ -1,6 +1,6 @@
 from typing import Optional
 
-from ...types.check import is_df, is_empty
+from ...xtype.check import is_df, is_empty
 
 
 def _is_not_df(df, name: Optional[str] = None):
