@@ -5,25 +5,28 @@
 """
 xpytools
 --------
-General-purpose Python utilities by Willem van der Schans.
-
-Submodules
-----------
-- xpytools.Checks → runtime-safe validators (`is_*`, `safe_*`)
-- xpytools.Cast   → type conversion helpers (`as_*`)
-- xpytools.types  → extended and Pydantic-compatible type factories
+General-purpose Python utilities
 """
 
-import sys
+from __future__ import annotations
 
-from . import types, decorators
-from . import utils as xpyt
+import sys as _sys
 
-# Bring Typing submodules up one level
-check = types.check
-cast = types.cast
-# Register them as top-level accessible modules
-sys.modules[__name__ + ".check"] = check
-sys.modules[__name__ + ".cast"] = cast
+# ----------------------------------------------------------------------
+# Normal imports
+# ----------------------------------------------------------------------
+from . import xtype, decorators, xtool as xpyt
 
-__all__ = ["check", "cast", "types", 'decorators', 'xpyt']
+check = xtype.check
+cast = xtype.cast
+literal = xtype.literal
+
+# Register for IDE/module discovery
+# _sys.modules[__name__ + ".xtool"] = xtool
+
+_sys.modules[__name__ + ".check"] = check
+_sys.modules[__name__ + ".cast"] = cast
+_sys.modules[__name__ + ".literal"] = literal
+_sys.modules[__name__ + ".xtool"] = xpyt
+
+__all__ = ["check", "cast", "literal", "xtype", "decorators", "xpyt"]
