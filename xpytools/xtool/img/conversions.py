@@ -3,8 +3,8 @@ from __future__ import annotations
 import base64
 from io import BytesIO
 
-from ...decorators import requireModules
 from .load import Image, _load_from_base64
+from ...decorators import requireModules
 
 
 @requireModules(["PIL"], exc_raise=True)

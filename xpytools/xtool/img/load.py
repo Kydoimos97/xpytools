@@ -3,13 +3,13 @@
 #  Licensed under the MIT License (https://opensource.org/license/mit).
 
 """
-xpytools.utils.image.io
+xpytools.xtool.imgo
 -----------------------
 Unified lightweight I/O helpers for images.
 
     • load from path, URL, or base64
     • base64 ↔ Pillow Image ↔ bytes
-    • save image locally
+    • save img locally
 """
 
 from __future__ import annotations, annotations
@@ -19,7 +19,7 @@ from pathlib import Path
 from typing import Union, Literal
 
 from ...decorators import requireModules
-from ...types.check import is_base64
+from ...xtype.check import is_base64
 
 try:
     import requests
@@ -38,14 +38,14 @@ except ImportError:
 
 @requireModules(["requests"], exc_raise=True)
 def _load_from_url(url: str, timeout: int = 20) -> bytes:
-    """Download image from HTTP(S) URL and return bytes."""
+    """Download img from HTTP(S) URL and return bytes."""
     resp = requests.get(url, timeout=timeout)
     resp.raise_for_status()
     return resp.content
 
 
 def _load_from_path(path: Union[str, Path]) -> bytes:
-    """Read image bytes from local path."""
+    """Read img bytes from local path."""
     path = Path(path)
     if not path.exists():
         raise FileNotFoundError(f"Image file not found: {path}")
@@ -58,21 +58,22 @@ def _load_from_base64(data: str) -> bytes:
         data = data.split(",", 1)[1]
     return base64.b64decode(data)
 
+
 @requireModules(["PIL"], exc_raise=False)
 def load(
-    src: Union[str, Path, bytes],
-    rtype: Literal["bytes", "base64", "pil.image"] = "bytes",
-    timeout: int = 20,
-) -> Union[bytes, str, "Image.Image"]:
+        src: Union[str, Path, bytes],
+        rtype: Literal["bytes", "base64", "pil.img"] = "bytes",
+        timeout: int = 20,
+        ) -> Union[bytes, str, "Image.Image"]:
     """
-    Load an image from any source (file path, URL, base64, bytes)
+    Load an img from any source (file path, URL, base64, bytes)
     and return the requested representation.
 
     Parameters
     ----------
     src : str | Path | bytes
         Image source (local path, URL, base64 string, or raw bytes).
-    rtype : {'bytes', 'base64', 'pil.image'}, default='bytes'
+    rtype : {'bytes', 'base64', 'pil.img'}, default='bytes'
         Return type.
     timeout : int, default=20
         Timeout for URL downloads.
@@ -85,25 +86,27 @@ def load(
     # --- Normalize to bytes --------------------------------------------------
     if isinstance(src, (bytes, bytearray)):
         img_bytes = bytes(src)
-    elif isinstance(src, (str, Path)) and Path(src).exists():
-        img_bytes = _load_from_path(src)
     elif isinstance(src, str) and src.startswith(("http://", "https://")):
         img_bytes = _load_from_url(src, timeout)
     elif isinstance(src, str) and is_base64(src):
         from .conversions import base64_to_bytes
         img_bytes = base64_to_bytes(src)
+    elif isinstance(src, Path):
+        img_bytes = _load_from_path(src)
+    elif isinstance(src, str) and '/' in src or '.' in src:
+        img_bytes = _load_from_path(src)
     else:
-        raise ValueError(f"Unsupported image source type: {type(src)}")
+        raise ValueError(f"Unsupported img source type: {type(src)}")
 
     # --- Delegate to converters ---------------------------------------------
     if rtype == "bytes":
         return img_bytes
     if rtype == "base64":
         return base64.b64encode(img_bytes).decode("utf-8")
-    if rtype == "pil.image":
+    if rtype == "pil.img":
         if not Image:
             raise ImportError("Pillow not installed; cannot return PIL Image.")
         from .conversions import from_bytes
         return from_bytes(img_bytes)
 
-    raise ValueError(f"Invalid rtype: {rtype!r} (expected 'bytes', 'base64', or 'pil.image').")
+    raise ValueError(f"Invalid rtype: {rtype!r} (expected 'bytes', 'base64', or 'pil.img').")

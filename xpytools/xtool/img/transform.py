@@ -1,7 +1,10 @@
 from __future__ import annotations
+
 from io import BytesIO
 from typing import Optional
+
 from ...decorators import requireModules
+
 try:
     from PIL import Image
     from PIL.Image import Resampling
@@ -9,18 +12,19 @@ except ImportError:
     Image = None
     Resampling = None
 
-@requireModules(['PIL'], exc_raise = True)
+
+@requireModules(['PIL'], exc_raise=True)
 def create_thumbnail(
-    image_data: bytes,
-    size: tuple[int, int] = (300, 300),
-    format: str = "PNG",
-) -> bytes:
+        image_data: bytes,
+        size: tuple[int, int] = (300, 300),
+        format: str = "PNG",
+        ) -> bytes:
     """
-    Create a thumbnail from image bytes and return as bytes.
+    Create a thumbnail from img bytes and return as bytes.
     Keeps aspect ratio, converts to RGB, and uses high-quality downsampling.
     """
     if not Image:
-        raise ImportError("Pillow (PIL) is required for image operations.")
+        raise ImportError("Pillow (PIL) is required for img operations.")
 
     image = Image.open(BytesIO(image_data))
     if image.mode != "RGB":
@@ -31,15 +35,16 @@ def create_thumbnail(
     image.save(buffer, format=format)
     return buffer.getvalue()
 
-@requireModules(['PIL'], exc_raise = True)
+
+@requireModules(['PIL'], exc_raise=True)
 def resize(
-    image_data: bytes,
-    size: tuple[int, int],
-    format: Optional[str] = None,
-    keep_aspect: bool = True,
-) -> bytes:
+        image_data: bytes,
+        size: tuple[int, int],
+        format: Optional[str] = None,
+        keep_aspect: bool = True,
+        ) -> bytes:
     """
-    Resize image to a specific size. Optionally keeps aspect ratio.
+    Resize img to a specific size. Optionally keeps aspect ratio.
     """
     if not Image:
         raise ImportError("Pillow (PIL) is required for resize_image().")
