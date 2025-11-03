@@ -7,7 +7,7 @@ from __future__ import annotations
 from typing import Any
 from uuid import UUID
 
-from ...types import UUIDLike
+from ...xtype.UUIDLike import UUIDLike
 
 
 # ---------------------------------------------------------------------------

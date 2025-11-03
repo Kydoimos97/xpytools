@@ -4,6 +4,7 @@ import re
 # precompiled regex: only base64-safe chars and padding
 _BASE64_RE = re.compile(r"^[A-Za-z0-9+/]+={0,2}$")
 
+
 def is_base64(data: str) -> bool:
     """
     Heuristically check if a string is valid Base64-encoded data.

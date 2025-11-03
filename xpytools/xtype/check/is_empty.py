@@ -10,16 +10,16 @@ if TYPE_CHECKING:
 
 def is_empty(obj: Union[Any, "pdDataFrame"]) -> bool:
     """
-    Safely check if an object "has values" (non-empty).
+    Returns True if the object is empty (has no values).
     Works for DataFrames, Series, lists, dicts, sets, and strings.
     """
     if obj is None:
-        return False
+        return True
     try:
         if hasattr(obj, "empty"):
-            return not getattr(obj, "empty")
+            return getattr(obj, "empty")
         if hasattr(obj, "__len__"):
-            return len(obj) > 0
-        return bool(obj)
+            return len(obj) == 0
+        return not bool(obj)
     except Exception:
         return False

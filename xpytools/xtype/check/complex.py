@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Any
 
-from . import is_int, is_float
+from .primitives import is_int, is_float
 
 
 def is_dict(value: Any, non_empty: bool = False) -> bool:
@@ -26,4 +26,3 @@ def is_list_like(value: Any, non_empty: bool = False) -> bool:
 def is_numeric(value: Any, allow_str: bool = False) -> bool:
     """Return True if value is int or float (optionally numeric string)."""
     return is_int(value, allow_str=allow_str) or is_float(value, allow_str=allow_str)
-
