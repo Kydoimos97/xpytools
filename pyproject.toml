@@ -7,37 +7,43 @@ build-backend = "hatchling.build"
 
 [project]
 name = "xpytools"
-version = "0.0.1"
-description = "xpytools"
+version = "0.0.3"
+description = "Python utilities for safe type handling, data manipulation, and runtime validation."
 readme = "README.md"
+license = { file = "LICENSE" }
 requires-python = ">=3.11"
-license = "MIT"
 authors = [
-    { name = "Kydoimos97" }
+    { name = "Willem van der Schans", email = "willemvanderschans97@gmail.com " }  # optional
 ]
 classifiers = [
+    "Development Status :: 1 - Planning",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
     "Operating System :: OS Independent"
 ]
 dependencies = []
 
 [project.urls]
+"Homepage" = "https://github.com/Kydoimos97/xpytools"
 "Author GitHub" = "https://github.com/Kydoimos97"
 "Author PyPI" = "https://pypi.org/user/Kydoimos97/"
+"PyPI" = "https://pypi.org/project/xpytools/"
 
 [tool.hatch.version]
 source = "vcs"
 tag-pattern = "^v(?P<version>\\d+\\.\\d+\\.\\d+)$"
 
 [tool.hatch.build.targets.sdist]
-include = ["xpytools", "pyproject.toml", "README.md"]
+include = ["xpytools", "pyproject.toml", "README.md", "LICENSE", 'uv.lock']
 
 [tool.hatch.build.targets.wheel]
 packages = ["xpytools"]
 
 [dependency-groups]
+# Development dependencies for testing, linting, typing
 dev = [
-    # Core development tools
     "mypy>=1.18.2",
     "mypy-boto3-s3>=1.40.61",
     "pytest>=8.4.2",
@@ -46,7 +52,7 @@ dev = [
     "pytest-xdist>=3.3.0",
 ]
 
-# 🚀 Convenience group for data science + utility dependencies
+# 🚀 All-in-one utility/data group (runtime helpers + analysis libs)
 all = [
     # Data processing / analysis
     "pandas>=2.3.3",
@@ -65,6 +71,9 @@ all = [
 ]
 
 [tool.pytest.ini_options]
+# -----------------------------
+# Test discovery and behavior
+# -----------------------------
 testpaths = ["tests"]
 python_files = ["test_*.py"]
 python_classes = ["Test*"]
