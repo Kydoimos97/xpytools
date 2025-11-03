@@ -1,0 +1,55 @@
+[build-system]
+requires = [
+    "hatchling>=1.24.2",
+    "hatch-vcs>=0.4.0"
+]
+build-backend = "hatchling.build"
+
+[project]
+name = "xpytools"
+version="0.0.1"
+#dynamic = ["version"]
+description = "xpytools"
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+authors = [
+    { name = "Kydoimos97" }
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "python-dotenv>=1.0,<2.0",
+    "requests>=2.32,<3.0",
+    "filetype>=1.2,<2.0",
+    "ansi2txt>=0.2.0,<1.0.0",
+    "ftfy>=6.3.1,<7.0.0",
+    "pydantic>=2.12.3",
+]
+
+# Project URLs
+[project.urls]
+"Author GitHub" = "https://github.com/Kydoimos97"
+"Author PyPI" = "https://pypi.org/user/Kydoimos97/"
+
+[project.optional-dependencies]
+
+[tool.hatch.version]
+source = "vcs"
+tag-pattern = "^v(?P<version>\\d+\\.\\d+\\.\\d+)$"
+
+[tool.hatch.build.targets.sdist]
+include = ["xpytools", "pyproject.toml", "README.md"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["xpytools"]
+
+[dependency-groups]
+dev = [
+    "mypy>=1.18.2",
+    "pandas>=2.3.3",
+    "pytest>=8.4.2",
+    "pytest-cov>=7.0.0",
+]
