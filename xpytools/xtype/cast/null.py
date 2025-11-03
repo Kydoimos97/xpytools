@@ -2,7 +2,7 @@ from __future__ import annotations, annotations
 
 from typing import Any, Optional
 
-from xpytools.types.check import is_none
+from xpytools.xtype.check import is_none
 
 
 def as_none(value: Any, safe: bool = True) -> Optional[Any]:
@@ -39,7 +39,10 @@ def as_none(value: Any, safe: bool = True) -> Optional[Any]:
     123
     """
     try:
-        return None if is_none(value) else value
+        if is_none(value):
+            return None
+        else:
+            return value
     except Exception:
         if not safe:
             raise

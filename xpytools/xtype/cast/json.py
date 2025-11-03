@@ -17,7 +17,7 @@ def as_json(value: Any, safe: bool = True) -> Optional[Union[dict, list]]:
                 return value
             if is_str(value, non_empty=True):
                 return _as_json_obj(value, safe)
-        return None
+        raise ValueError(f"Invalid JSON value: {value}")
     except Exception:
         if not safe:
             raise
@@ -33,7 +33,7 @@ def _as_json_obj(value: Any, safe: bool = True) -> Optional[Union[dict, list]]:
     if isinstance(value, (dict, list)):
         return value
     if not isinstance(value, str):
-        return None
+        raise ValueError(f"Invalid JSON value: {value}")
     try:
         return json.loads(value)
     except Exception:

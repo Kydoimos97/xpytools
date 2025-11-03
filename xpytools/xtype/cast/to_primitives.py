@@ -3,14 +3,14 @@
 #  Licensed under the MIT License (https://opensource.org/license/mit).
 
 """
-xpytools.utils.json.type_safely
+xpytools.xtool.json.type_safely
 -------------------------------
 Recursively convert arbitrary Python / NumPy / pandas / dataclass / Enum /
 Pydantic objects into JSON-safe primitives.
 
 This version integrates with:
 - xpytools.Typing.Checks for consistent type handling
-- Optional NumPy / pandas / pydantic modules (no hard dependency)
+- Optional NumPy / pandas / xpyt_pydantic modules (no hard dependency)
 
 Purpose
 -------
@@ -20,16 +20,17 @@ to JSON-compatible primitives or lists/dicts.
 """
 
 from __future__ import annotations
-from typing import Any
+
 from dataclasses import is_dataclass, asdict
 from enum import Enum
+from typing import Any
 
 from ..check import (
     is_df,
     is_none,
     is_list_like,
     is_dict,
-)
+    )
 
 # Optional dependencies (fail gracefully)
 try:
@@ -83,7 +84,7 @@ def to_primitives(obj: Any) -> Any:
     {'x': 1, 'y': None}
     >>> to_primitives(pd.DataFrame({'a':[1, None]}))
     [{'a': 1}, {'a': None}]
-    >>> from pydantic import BaseModel
+    >>> from xpyt_pydantic import BaseModel
     >>> class M(BaseModel): a: int; b: float
     >>> to_primitives(M(a=1, b=float("nan")))
     {'a': 1, 'b': None}
@@ -127,8 +128,8 @@ def to_primitives(obj: Any) -> Any:
     if is_df(obj):
         try:
             return to_primitives(
-                obj.replace({pd.NA: None, np.nan: None}).to_dict(orient="records")
-            )
+                    obj.replace({pd.NA: None, np.nan: None}).to_dict(orient="records")
+                    )
         except Exception:
             return None
 
@@ -146,9 +147,9 @@ def to_primitives(obj: Any) -> Any:
         if isinstance(obj, np.ndarray):
             try:
                 return to_primitives(
-                    np.where(pd.isna(obj), None, obj).tolist()
-                    if pd is not None else obj.tolist()
-                )
+                        np.where(pd.isna(obj), None, obj).tolist()
+                        if pd is not None else obj.tolist()
+                        )
             except Exception:
                 return to_primitives(obj.tolist())
 

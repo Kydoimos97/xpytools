@@ -15,7 +15,8 @@ from __future__ import annotations, annotations, annotations
 
 from typing import Any, Optional
 
-from . import as_json_str, as_datetime_str
+from .datetime import as_datetime_str
+from .json import as_json_str
 # Import checkers
 from ..check import (
     is_int,
@@ -44,7 +45,9 @@ def as_int(value: Any, safe: bool = True) -> Optional[int]:
             return int(float(value))
         if is_str(value, non_empty=True) and is_int(value, allow_str=True):
             return int(value)
-        return None
+        if is_bool(value):
+            return int(value)
+        raise ValueError("Invalid integer value")
     except Exception:
         if not safe:
             raise
@@ -63,7 +66,7 @@ def as_float(value: Any, safe: bool = True) -> Optional[float]:
             return float(value)
         if is_str(value, non_empty=True) and is_float(value, allow_str=True):
             return float(value)
-        return None
+        raise ValueError("Invalid float value")
     except Exception:
         if not safe:
             raise
@@ -85,11 +88,11 @@ def as_bool(value: Any, safe: bool = True) -> Optional[bool]:
                 return True
             if v in {"false", "no", "0", "off"}:
                 return False
-        return bool(value)
+        raise ValueError("Invalid boolean value")
     except Exception:
         if not safe:
             raise
-        return None
+        return bool(value)
 
 
 def as_str(
@@ -159,12 +162,12 @@ def as_str(
             return value
 
         # Fallback to default str() conversion
-        return str(value)
+        raise ValueError("Invalid string value")
 
     except Exception:
         if not safe:
             raise
-        return None
+        return str(value)
 
 
 def as_bytes(value: Any, safe: bool = True, encoding: str = "utf-8") -> Optional[bytes]:
@@ -208,9 +211,8 @@ def as_bytes(value: Any, safe: bool = True, encoding: str = "utf-8") -> Optional
         json_str = as_json_str(value)
         if json_str is not None:
             return json_str.encode(encoding, errors="ignore")
-        return str(value).encode(encoding, errors="ignore")
+        raise ValueError("Invalid bytes value")
     except Exception:
         if not safe:
             raise
-        return None
-
+        return str(value).encode(encoding, errors="ignore")

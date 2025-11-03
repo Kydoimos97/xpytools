@@ -15,7 +15,8 @@ def as_datetime(value: Any, safe: bool = True, assume_tz_utc: bool = True) -> Op
             return _to_datetime(value, assume_tz_utc)
         if is_int(value) or is_float(value):
             return _to_datetime(float(value), assume_tz_utc)
-        return None
+        raise ValueError(f"Invalid datetime value: {value}")
+
     except Exception:
         if not safe:
             raise
@@ -36,6 +37,8 @@ def _to_datetime(value: Any, assume_tz_utc: bool = True) -> Optional[datetime]:
     datetime.datetime(2024, 1, 1, 10, 0, tzinfo=datetime.timezone.utc)
     """
     if isinstance(value, datetime):
+        if value.tzinfo is None and assume_tz_utc:
+            return value.replace(tzinfo=timezone.utc)
         return value
     if isinstance(value, (int, float)):
         try:
@@ -45,17 +48,14 @@ def _to_datetime(value: Any, assume_tz_utc: bool = True) -> Optional[datetime]:
     if isinstance(value, str):
         try:
             dt = datetime.fromisoformat(value.replace("Z", "+00:00"))
+            dt = dt.replace(tzinfo = timezone.utc if assume_tz_utc else None)
             return dt
         except Exception:
             return None
     return None
 
 
-def as_datetime_str(
-        value: datetime,
-        include_time: bool = True,
-        include_utc: bool = True,
-        ) -> Optional[str]:
+def as_datetime_str(value: datetime, include_time: bool = True, include_utc: bool = False) -> Optional[str]:
     """
     Safely convert a datetime object into an ISO-like string.
 
@@ -83,13 +83,13 @@ def as_datetime_str(
     >>> as_datetime_str(datetime(2025, 1, 1, 12, 30, tzinfo=timezone.utc))
     '2025-01-01T12:30:00+00:00'
 
-    >>> as_datetime_str(datetime(2025, 1, 1), include_utc=False)
+    >>> as_datetime_str(datetime(2025, 1, 1),include_utc=False)
     '2025-01-01T00:00:00'
 
     >>> as_datetime_str(None)
     None
     """
-    value = as_datetime(value, include_utc)
+    value = as_datetime(value, safe = True, assume_tz_utc = include_utc)
 
     if not is_datetime(value):
         return None

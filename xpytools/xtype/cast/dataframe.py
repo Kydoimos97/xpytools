@@ -4,7 +4,7 @@ from typing import Optional, Any
 
 from typing_extensions import TYPE_CHECKING
 
-from . import as_json
+from .json import as_json
 from ..check import is_df, is_json_like
 
 if TYPE_CHECKING:
@@ -67,14 +67,14 @@ def as_df(value: Any, safe: bool = True) -> Optional["pdDataFrame"]:
         if is_json_like(value):
             parsed = as_json(value)
             if parsed is None:
-                return None
+                raise ValueError("Invalid JSON value")
             return pdDataFrame(parsed)
 
         # Try generic coercion (lists of tuples, numpy arrays, etc.)
         try:
             return pdDataFrame(value)
         except Exception:
-            return None
+            raise
 
     except Exception:
         if not safe:

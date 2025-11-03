@@ -2,7 +2,7 @@ from __future__ import annotations, annotations, annotations
 
 from typing import Any, Optional
 
-from . import as_json
+from .json import as_json
 
 
 def as_dict(value: Any, safe: bool = True) -> Optional[dict]:
@@ -86,9 +86,8 @@ def as_list(value: Any, safe: bool = True, wrap_scalar: bool = True) -> Optional
             return list(value)
         if wrap_scalar and value is not None:
             return [value]
-        return None
+        raise ValueError(f"Invalid JSON value: {value}")
     except Exception:
         if not safe:
             raise
         return None
-
