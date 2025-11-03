@@ -1,6 +1,6 @@
 # xpytools
 
-**Production-ready Python utilities for safe type handling, data manipulation, and runtime validation.**
+**Python utilities for safe type handling, data manipulation, and runtime validation.**
 
 A collection of defensive programming tools that handle messy real-world data: inconsistent nulls, malformed inputs, timezone chaos, and format conversions. Built for data pipelines, ETL workflows, and APIs where you can't trust your inputs.
 
@@ -24,6 +24,11 @@ pip install xpytools[all]
 xpytools provides multiple import patterns. Choose based on your preference:
 
 ### Recommended Imports
+
+**Note: Be cautious with alias overwrites of different packages. 
+The preferred import method is `from xpytools import xpyt` as this ensure uniqueness.
+Additionally this enforces prepending the targeted data type: `xpyt.txt.clean()` vs `clean()` which is ambigious.
+
 
 ```python
 # Type system shortcuts (most concise)
@@ -54,7 +59,7 @@ xtype.check.is_none(value)
 ```
 
 ```python
-# Direct submodule imports (bypasses shortcuts)
+# Highly discouraged: Direct submodule imports (bypasses shortcuts)
 from xpytools.xtype import cast, check
 from xpytools.xtool import df, txt, img
 
@@ -64,7 +69,6 @@ from xpytools.xtool import df, txt, img
 ```python
 # Deep imports (for specific functions)
 from xpytools.xtype.check import is_none, is_int
-from xpytools.xtool.df import normalize_column_names
 ```
 
 ### Import Gotchas
@@ -78,11 +82,6 @@ from xpytools.xpyt import df  # ImportError: No module named 'xpytools.xpyt'
 ```python
 from xpytools import xpyt  # Works
 xpyt.df.normalize_column_names(df)
-
-# OR
-
-from xpytools.xtool import df  # Works (xtool is the real name)
-df.normalize_column_names(df)
 ```
 
 ---
