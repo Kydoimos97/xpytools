@@ -2,18 +2,18 @@ from __future__ import annotations, annotations
 
 from typing import Any, Optional
 
-from ...types.cast import to_primitives
-from ...types.check import is_df
-from utils.dataframe.replace_none_like import replace_none_like
 from .to_pg_array import to_pg_array
+from ..df.replace_none_like import replace_none_like
+from ...xtype.cast import to_primitives
+from ...xtype.check import is_df
+
 try:
     import pandas as pd
 except ImportError:  # pragma: no cover
     pd = None  # type: ignore
 
 
-
-def prepare_dataframe(df: Any, inplace: bool = False) -> Optional["pd.DataFrame"]:
+def prepare_dataframe(df: Any) -> Optional["pd.DataFrame"]:
     """
     Clean a DataFrame for safe SQL export or insertion.
 
@@ -26,8 +26,6 @@ def prepare_dataframe(df: Any, inplace: bool = False) -> Optional["pd.DataFrame"
     ----------
     df : pandas.DataFrame | Any
         Input DataFrame-like object. Non-DataFrame values are returned unchanged.
-    inplace : bool, default=False
-        If True, mutates the original DataFrame instead of returning a copy.
 
     Returns
     -------
@@ -47,8 +45,7 @@ def prepare_dataframe(df: Any, inplace: bool = False) -> Optional["pd.DataFrame"
     if not is_df(df):
         return None
 
-    if not inplace:
-        df = df.copy()
+    df = df.copy()
 
     # Normalize to PostgreSQL array literals where applicable
     df = df.map(to_pg_array)
@@ -57,7 +54,6 @@ def prepare_dataframe(df: Any, inplace: bool = False) -> Optional["pd.DataFrame"
     df = df.map(to_primitives)
 
     # Ensure all NA values are None (for psycopg/sqlalchemy compatibility)
-    df = replace_none_like(df)
-
+    df = replace_none_like(df, force=True)
 
     return df
