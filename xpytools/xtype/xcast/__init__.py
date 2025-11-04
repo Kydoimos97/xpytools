@@ -6,8 +6,6 @@
 xpytools.types.xcast
 -------------------
 Safe type conversion helpers (`as_*`).
-
-Covers primitives, complex types, JSON, DataFrames, and datetime conversions.
 """
 
 from __future__ import annotations

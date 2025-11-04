@@ -6,9 +6,6 @@
 xpytools.xtool.xpyt_pydantic
 -----------------------
 Pydantic-related helpers and mixins.
-
-Provides:
-    • TypeSafeAccessMixin → adds safe attribute/dict-style access for BaseModels
 """
 
 from __future__ import annotations

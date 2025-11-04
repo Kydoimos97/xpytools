@@ -6,14 +6,6 @@
 xpytools.xtool.txt
 -------------------
 Text-processing utilities.
-
-Provides:
-    • clean(txt)          → normalized txt with optional dependency on `cleantext`
-    • strip_ascii(txt)    → remove non-ASCII characters
-    • strip_html(txt)     → remove HTML tags safely
-    • split_lines(txt)    → wrap or split txt at a max width
-    • truncate(txt)       → truncate long strings with ellipsis
-    • pad(txt)            → pad txt left, right, or center for aligned output
 """
 
 from __future__ import annotations

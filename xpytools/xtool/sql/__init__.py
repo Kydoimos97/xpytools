@@ -6,10 +6,6 @@
 xpytools.xtool.sql
 ------------------
 SQL-related utility functions.
-
-Provides:
-    • prepare_dataframe(df) → sanitize and format DataFrames for SQL insertion
-    • to_pg_array(values)   → safely convert Python sequences to PostgreSQL array literals
 """
 
 from __future__ import annotations

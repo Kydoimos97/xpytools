@@ -6,16 +6,6 @@
 xpytools.xtool.img
 --------------------
 Lightweight img I/O and transformation helpers.
-
-Provides:
-    • load(src)                     → smart loader (path, URL, bytes, base64)
-    • create_thumbnail(img, size) → generate thumbnail while preserving aspect ratio
-    • resize(img, size)           → resize Pillow Image safely
-    • to_bytes(img)               → convert Pillow Image → bytes
-    • to_base64(img)              → convert Pillow Image → base64 string
-    • base64_to_bytes(b64)          → convert base64 string → raw bytes
-    • from_bytes(data)              → convert raw bytes → Pillow Image
-    • from_base64(b64)              → convert base64 string → Pillow Image
 """
 
 from __future__ import annotations

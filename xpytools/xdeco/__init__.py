@@ -5,11 +5,7 @@
 """
 xpytools.xdeco
 -------------------
-Lightweight xdeco for runtime safety and object management.
-
-Provides:
-    • requireModules(module_names) → raises or skips when dependencies are missing
-    • asSingleton(cls)             → enforce singleton behavior on class definition
+Lightweight decorators for runtime safety and object management.
 """
 
 from __future__ import annotations

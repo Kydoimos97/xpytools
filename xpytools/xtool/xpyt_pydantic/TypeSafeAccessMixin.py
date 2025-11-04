@@ -44,7 +44,11 @@ from enum import Enum
 from typing import Any, Dict, List, Optional
 from uuid import UUID
 
-from pydantic import BaseModel, model_validator
+try:
+    from pydantic import BaseModel, model_validator
+except ImportError:
+    BaseModel = None
+    model_validator = None
 
 from ...xtype.xcast import (
     as_str,

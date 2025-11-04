@@ -6,12 +6,6 @@
 xpytools.types.literal
 ----------------------
 Runtime-constrained literal-like types.
-
-Provides:
-    • strChoice  → string-based literal validator
-    • floatChoice → float-based literal validator
-    • intChoice   → integer-based literal validator
-    • anyChoice  → flexible literal for mixed types
 """
 
 from __future__ import annotations
