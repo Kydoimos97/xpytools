@@ -1,15 +1,37 @@
-# xpytools
+<h1 align="center">xPyTools</h1>
 
-[![Tests](https://github.com/Kydoimos97/xpytools/actions/workflows/test.yml/badge.svg)](https://github.com/Kydoimos97/xpytools/actions/workflows/test.yml)
-[![Coverage](https://codecov.io/gh/Kydoimos97/xpytools/branch/main/graph/badge.svg)](https://codecov.io/gh/Kydoimos97/xpytools)
-[![Python](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
-[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+<p align="center">
+  <a href="https://github.com/Kydoimos97/xpytools/actions/workflows/run-tests.yml">
+    <img src="https://github.com/Kydoimos97/xpytools/actions/workflows/run-tests.yml/badge.svg" alt="Tests">
+  </a>
+  <a href="https://codecov.io/gh/Kydoimos97/xpytools">
+    <img src="https://codecov.io/gh/Kydoimos97/xpytools/branch/main/graph/badge.svg" alt="Coverage">
+  </a>
+  <a href="https://www.python.org/downloads/">
+    <img src="https://img.shields.io/badge/python-3.11%2B-blue.svg" alt="Python 3.11+">
+  </a>
+  <a href="LICENSE">
+    <img src="https://img.shields.io/badge/license-MIT-green.svg" alt="License: MIT">
+  </a>
+</p>
 
-**Python utilities for safe type handling, data manipulation, and runtime validation.**
+<p align="center"><b>
+Python utilities for safe type handling, data manipulation, and runtime validation.
+</b></p>
 
-A collection of defensive programming tools that handle messy real-world data: inconsistent nulls, malformed inputs, timezone chaos, and format conversions. Built for data pipelines, ETL workflows, and APIs where you can't trust your inputs.
+<p align="center">
+A collection of defensive programming tools that handle messy real-world data:
+inconsistent nulls, malformed inputs, timezone chaos, and format conversions.<br>
+Built for data pipelines, ETL workflows, and APIs where you can't trust your inputs.
+</p>
 
 ---
+
+<p align="center">
+  📘 <a href="https://xpytools.readthedocs.io/en/latest"><b>Read the Docs</b></a>
+</p>
+
+
 
 ## Installation
 
