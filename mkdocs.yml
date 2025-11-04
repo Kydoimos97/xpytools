@@ -1,0 +1,155 @@
+site_name: xPyTools
+site_url: !ENV READTHEDOCS_CANONICAL_URL
+site_description: xpytools – Python utilities for safe type handling, data manipulation, and runtime validation.
+site_author: Kydoimos97
+
+nav:
+  - Home: index.md
+  - Overview: api/index.md
+  - xType - Type System:
+    - xCast: xtype/xcast.md
+    - xCheck: xtype/xcheck.md
+    - choice: xtype/choice.md
+    - types: xtype/types.md
+    - aliases: xtype/common.md
+  - xTool - Utilities:
+    - DataFrame Operations: xtool/df.md
+    - Image Processing: xtool/img.md
+    - Text Processing: xtool/txt.md
+    - SQL Bridge: xtool/sql.md
+    - Pydantic Extensions: xtool/pydantic.md
+  - xDeco - Decorators:
+    - requireModules: xdeco/requireModules.md
+    - asSingleton: xdeco/asSingleton.md
+  - Help:
+    -  installation: installation.md
+
+
+
+extra_css:
+  - assets/stylesheets/mkdocstrings-sections.css
+
+theme:
+  name: material
+  custom_dir: docs/overrides
+  icon:
+    logo: material/code-braces
+  features:
+    - navigation.instant
+    - navigation.instant.prefetch
+    - navigation.instant.progress
+    - navigation.sections
+    - navigation.indexes
+    - navigation.tracking
+    - navigation.top
+    - toc.integrate           # integrates toc into sidebar
+    - content.code.copy
+    - content.code.annotate
+    - content.tabs.link
+    - navigation.footer
+    - search.highlight
+    - search.suggest
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: blue
+      accent: light-blue
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: red
+      accent: orange
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+  font:
+    text: Inter
+    code: JetBrains Mono
+  highlightjs: false
+  codehilite:
+    guess_lang: false
+
+plugins:
+  - search
+  - git-revision-date-localized:
+      timezone: UTC
+      type: iso_date
+  - mkdocstrings:
+      handlers:
+        python:
+          options:
+            # ─── Parsing & Docstring Style ────────────────────────────────
+            docstring_style: numpy          # or "google" if you prefer
+            docstring_section_style: table  # clean, compact layout
+            show_if_no_docstring: false     # hide undocumented members
+
+            # ─── Structure & Layout ───────────────────────────────────────
+            show_source: true               # shows "Source code in ..." link
+            show_root_heading: true         # adds clear module heading
+            show_root_toc_entry: true       # adds modules to page ToC
+            separate_signature: true        # cleaner function headers
+            show_signature_annotations: true
+            merge_init_into_class: true     # includes __init__ params in class docs
+            group_by_category: true         # groups functions/classes logically
+            heading_level: 3                # H3 for API functions
+            show_bases: true                # lists base classes
+            line_length: 100                # wraps long signatures better
+            show_docstring_description: true
+
+            # ─── Visibility Controls ──────────────────────────────────────
+            filters:
+              # Keep only top-level public functions
+              - "!^_"              # hide private
+              - "!^__"             # hide dunders
+              - "!^__all__$"
+              - "!^__version__$"
+              - "!^__author__$"
+
+            # ─── Rendering Tweaks ─────────────────────────────────────────
+            show_submodules: true            # automatically render submodules
+            show_symbol_type_heading: true   # adds small labels (function, class)
+            summary: true                    # compact summary table at top
+            parameter_headings: true         # adds small bold headers in params
+            extra:
+              load_external_modules: true    # allow introspection of installed deps
+              heading_level_by_type:
+                module: 2
+                class: 3
+                function: 4
+                method: 4
+              # Newer mkdocstrings versions allow custom per-type heading levels
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+      auto_title: true
+      linenums: true
+      linenums_style: pymdownx-inline
+  - pymdownx.inlinehilite
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.magiclink
+  - pymdownx.keys
+  - toc:
+      permalink: true
+      toc_depth: 3
+  - attr_list
+  - md_in_html
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.snippets
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/Kydoimos97/xpytools
+    - icon: fontawesome/brands/python
+      link: https://pypi.org/project/xpytools/
+repo_url: https://github.com/Kydoimos97/xpytools
+repo_name: Kydoimos97/xpytools
+edit_uri: edit/main/docs/
