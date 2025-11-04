@@ -3,7 +3,7 @@ from __future__ import annotations
 from io import BytesIO
 from typing import Optional
 
-from ...decorators import requireModules
+from ...xdeco import requireModules
 
 try:
     from PIL import Image

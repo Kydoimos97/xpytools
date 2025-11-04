@@ -2,7 +2,7 @@ from __future__ import annotations, annotations
 
 from typing import Any
 
-from ...xtype.check import is_none, is_list_like
+from ...xtype.xcheck import is_none, is_list_like
 
 
 def to_pg_array(val: Any) -> Any:

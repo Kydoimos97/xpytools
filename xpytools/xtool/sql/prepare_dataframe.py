@@ -4,8 +4,8 @@ from typing import Any, Optional
 
 from .to_pg_array import to_pg_array
 from ..df.replace_none_like import replace_none_like
-from ...xtype.cast import to_primitives
-from ...xtype.check import is_df
+from ...xtype.xcast import to_primitives
+from ...xtype.xcheck import is_df
 
 try:
     import pandas as pd

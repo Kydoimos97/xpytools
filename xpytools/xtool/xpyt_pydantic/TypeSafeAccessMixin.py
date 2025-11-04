@@ -46,12 +46,12 @@ from uuid import UUID
 
 from pydantic import BaseModel, model_validator
 
-from ...xtype.cast import (
+from ...xtype.xcast import (
     as_str,
     as_datetime_str,
     )
-from ...xtype.cast.to_primitives import to_primitives
-from ...xtype.check import is_none, is_list_like, is_dict
+from ...xtype.xcast.to_primitives import to_primitives
+from ...xtype.xcheck import is_none, is_list_like, is_dict
 
 
 class TypeSafeAccessMixin:
@@ -77,8 +77,8 @@ class TypeSafeAccessMixin:
         - Converts JSON-like strings to dicts
         - Normalizes None-like values
         """
-        from ...xtype.cast import as_json
-        from ...xtype.check import is_uuid, is_json_like
+        from ...xtype.xcast import as_json
+        from ...xtype.xcheck import is_uuid, is_json_like
 
         coerced = {}
         for key, val in values.items():

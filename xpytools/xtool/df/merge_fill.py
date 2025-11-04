@@ -3,11 +3,11 @@ from __future__ import annotations
 from typing import Optional, TYPE_CHECKING
 
 from ._handlers import _check_df
-from ...xtype.literal import StrLiteral
+from ...xtype.choice import strChoice
 
 if TYPE_CHECKING:
     from pandas import DataFrame as pdDataFrame
-from ...decorators import requireModules
+from ...xdeco import requireModules
 
 
 @requireModules(["pandas"], exc_raise=True)
@@ -42,7 +42,7 @@ def merge_fill(
     -------
     DataFrame | None
     """
-    _mergetype = StrLiteral('left', 'right', 'outer', 'inner')
+    _mergetype = strChoice('left', 'right', 'outer', 'inner')
 
     _check_df(left, 'Left')
 

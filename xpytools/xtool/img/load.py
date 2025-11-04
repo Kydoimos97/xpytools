@@ -18,8 +18,8 @@ import base64
 from pathlib import Path
 from typing import Union, Literal
 
-from ...decorators import requireModules
-from ...xtype.check import is_base64
+from ...xdeco import requireModules
+from ...xtype.xcheck import is_base64
 
 try:
     import requests

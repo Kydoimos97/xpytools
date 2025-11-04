@@ -23,7 +23,7 @@ from typing_extensions import TYPE_CHECKING
 if TYPE_CHECKING:
     from pandas import DataFrame as pdDataFrame
 
-from ...decorators import requireModules
+from ...xdeco import requireModules
 from ._handlers import _check_df
 
 

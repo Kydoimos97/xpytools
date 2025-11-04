@@ -5,7 +5,7 @@ from typing import Any
 
 import unicodedata
 
-from ...decorators import requireModules
+from ...xdeco import requireModules
 
 
 @requireModules(["cleantext"], exc_raise=False)

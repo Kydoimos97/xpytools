@@ -2,12 +2,12 @@ from __future__ import annotations
 
 from typing import Optional, TYPE_CHECKING
 
-from ...xtype.cast import as_none
-from ...xtype.check import is_df, is_empty
+from ...xtype.xcast import as_none
+from ...xtype.xcheck import is_df, is_empty
 
 if TYPE_CHECKING:
     from pandas import DataFrame as pdDataFrame
-from ...decorators import requireModules
+from ...xdeco import requireModules
 
 
 @requireModules(["pandas"], exc_raise=True)
