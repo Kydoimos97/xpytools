@@ -3,7 +3,7 @@ from typing import cast
 from ._LiteralEnumType import _LiteralEnumType
 
 
-def FloatLiteral(*choices: float) -> type[float]:
+def floatChoice(*choices: float) -> type[float]:
     """
     Constrain a float field to a fixed set of allowed values.
 
@@ -22,7 +22,7 @@ def FloatLiteral(*choices: float) -> type[float]:
 
     Examples
     --------
-        >>> Precision = FloatLiteral(0.1, 0.01, 0.001)
+        >>> Precision = floatChoice(0.1, 0.01, 0.001)
         >>> Precision(0.1)
         0.1
         >>> Precision(1.0)

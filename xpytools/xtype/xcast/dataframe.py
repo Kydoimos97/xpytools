@@ -5,12 +5,12 @@ from typing import Optional, Any
 from typing_extensions import TYPE_CHECKING
 
 from .json import as_json
-from ..check import is_df, is_json_like
+from ..xcheck import is_df, is_json_like
 
 if TYPE_CHECKING:
     from pandas import DataFrame as pdDataFrame
 
-from ...decorators import requireModules
+from ...xdeco import requireModules
 
 
 @requireModules(["pandas"], exc_raise=True)

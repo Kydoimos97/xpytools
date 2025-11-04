@@ -11,20 +11,24 @@ Includes:
     • TTLSet      → Thread-safe expiring set for in-memory tracking.
     • UUIDLike    → Pydantic-compatible UUID string validator.
     • literal     → Runtime-constrained pseudo-Literal types.
-    • check       → `is_*` validators for runtime-safe type checking.
-    • cast        → `as_*` converters for normalization and coercion.
+    • xcheck       → `is_*` validators for runtime-safe type checking.
+    • xcast        → `as_*` converters for normalization and coercion.
 """
 
 from __future__ import annotations
 
-from . import check, cast, literal
+from . import xcheck, xcast, choice
 from .TTLSet import TTLSet
 from .UUIDLike import UUIDLike
+from .choice import strChoice, intChoice, floatChoice, anyChoice
 
 __all__ = [
         "TTLSet",
         "UUIDLike",
-        "literal",
-        "check",
-        "cast",
+        "strChoice",
+        'intChoice',
+        'floatChoice',
+        'anyChoice',
+        "xcheck",
+        "xcast",
         ]

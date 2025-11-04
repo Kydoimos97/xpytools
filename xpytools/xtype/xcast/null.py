@@ -2,7 +2,7 @@ from __future__ import annotations, annotations
 
 from typing import Any, Optional
 
-from xpytools.xtype.check import is_none
+from xpytools.xtype.xcheck import is_none
 
 
 def as_none(value: Any, safe: bool = True) -> Optional[Any]:

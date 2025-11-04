@@ -3,7 +3,7 @@ from __future__ import annotations
 from datetime import datetime, timezone
 from typing import Optional, Any
 
-from ..check import is_datetime, is_datetime_like, is_int, is_float
+from ..xcheck import is_datetime, is_datetime_like, is_int, is_float
 
 
 def as_datetime(value: Any, safe: bool = True, assume_tz_utc: bool = True) -> Optional[datetime]:

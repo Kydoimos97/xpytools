@@ -3,7 +3,7 @@
 #  Licensed under the MIT License (https://opensource.org/license/mit).
 
 """
-xpytools.types.check
+xpytools.types.xcheck
 --------------------
 Safe runtime type validators (`is_*`).
 

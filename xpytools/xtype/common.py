@@ -11,7 +11,7 @@ These simplify type hints across the `xpytools` ecosystem and
 ensure consistent naming conventions across submodules.
 
 Example:
-    from xpytools.types.common import DictStrAny, OptStr, PathLike
+    from xpytools.xtype.common import DictStrAny, OptStr, PathLike
 
     def save_json(data: DictStrAny, path: PathLike) -> None:
         ...

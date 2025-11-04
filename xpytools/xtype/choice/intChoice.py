@@ -3,7 +3,7 @@ from typing import cast
 from ._LiteralEnumType import _LiteralEnumType
 
 
-def IntLiteral(*choices: int) -> type[int]:
+def intChoice(*choices: int) -> type[int]:
     """
     Constrain an integer field to a fixed set of allowed values.
 
@@ -23,7 +23,7 @@ def IntLiteral(*choices: int) -> type[int]:
 
     Examples
     --------
-        >>> Code = IntLiteral(200, 404, 500)
+        >>> Code = intChoice(200, 404, 500)
         >>> Code(200)
         200
         >>> Code(403)

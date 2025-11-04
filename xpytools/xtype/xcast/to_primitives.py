@@ -25,7 +25,7 @@ from dataclasses import is_dataclass, asdict
 from enum import Enum
 from typing import Any
 
-from ..check import (
+from ..xcheck import (
     is_df,
     is_none,
     is_list_like,

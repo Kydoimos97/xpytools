@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 from typing import Any, Optional, Union
 
-from ..check import is_json, is_str, is_json_like
+from ..xcheck import is_json, is_str, is_json_like
 
 
 def as_json(value: Any, safe: bool = True) -> Optional[Union[dict, list]]:

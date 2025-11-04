@@ -131,14 +131,14 @@ def _LiteralEnumType(*choices: T):
 
 # === Example & tests ===
 if __name__ == "__main__":
-    from .StrLiteral import StrLiteral
-    from .IntLiteral import IntLiteral
-    from .FloatLiteral import FloatLiteral
-    from .AnyTLiteral import AnyTLiteral
+    from .strChoice import strChoice
+    from .intChoice import intChoice
+    from .floatChoice import floatChoice
+    from .anyChoice import anyChoice
 
-    MyStrLit = StrLiteral("foo", "bar")
-    MyIntLit = IntLiteral(1, 2, 3)
-    MyFloatLit = FloatLiteral(1.5, 2.5)
+    MyStrLit = strChoice("foo", "bar")
+    MyIntLit = intChoice(1, 2, 3)
+    MyFloatLit = floatChoice(1.5, 2.5)
 
     from pydantic import BaseModel
 
@@ -150,7 +150,7 @@ if __name__ == "__main__":
 
     a = TestClass(kind="foo", num=1)
     b = TestClass(kind="bar", num=2)
-    MyAnyLit = AnyTLiteral("foo", 1, 2.5, {}, a)
+    MyAnyLit = anyChoice("foo", 1, 2.5, {}, a)
 
 
     class Example(BaseModel):

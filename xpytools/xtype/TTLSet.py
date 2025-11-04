@@ -98,7 +98,7 @@ class TTLSet:
         Parameters
         ----------
         key : str
-            The key to check.
+            The key to xcheck.
 
         Returns
         -------

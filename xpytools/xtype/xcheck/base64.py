@@ -7,7 +7,7 @@ _BASE64_RE = re.compile(r"^[A-Za-z0-9+/]+={0,2}$")
 
 def is_base64(data: str) -> bool:
     """
-    Heuristically check if a string is valid Base64-encoded data.
+    Heuristically xcheck if a string is valid Base64-encoded data.
     Returns True only if:
       • it's a str of reasonable length,
       • matches base64 charset,
@@ -30,7 +30,7 @@ def is_base64(data: str) -> bool:
     if not _BASE64_RE.match(data):
         return False
 
-    # try decode / re-encode consistency check
+    # try decode / re-encode consistency xcheck
     try:
         decoded = base64.b64decode(data, validate=True)
         # re-encode and see if it matches (ignoring trailing padding differences)

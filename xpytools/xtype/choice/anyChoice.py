@@ -3,7 +3,7 @@ from typing import Any
 from ._LiteralEnumType import _LiteralEnumType
 
 
-def AnyTLiteral(*choices: Any):
+def anyChoice(*choices: Any):
     """
     Constrain a field to a fixed set of **arbitrary values**.
 
@@ -23,7 +23,7 @@ def AnyTLiteral(*choices: Any):
 
     Examples
     --------
-        >>> Mixed = AnyTLiteral("foo", 1, 2.5, {})
+        >>> Mixed = anyChoice("foo", 1, 2.5, {})
         >>> Mixed("foo")
         'foo'
         >>> Mixed({})

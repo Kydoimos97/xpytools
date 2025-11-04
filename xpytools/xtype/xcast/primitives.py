@@ -18,7 +18,7 @@ from typing import Any, Optional
 from .datetime import as_datetime_str
 from .json import as_json_str
 # Import checkers
-from ..check import (
+from ..xcheck import (
     is_int,
     is_float,
     is_bool,

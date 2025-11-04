@@ -3,7 +3,7 @@ from typing import cast
 from ._LiteralEnumType import _LiteralEnumType
 
 
-def StrLiteral(*choices: str) -> type[str]:
+def strChoice(*choices: str) -> type[str]:
     """
     Constrain a string field to a fixed set of allowed values.
 
@@ -29,7 +29,7 @@ def StrLiteral(*choices: str) -> type[str]:
     Examples
     --------
     Basic usage:
-        >>> Color = StrLiteral("red", "green", "blue")
+        >>> Color = strChoice("red", "green", "blue")
         >>> Color("red")
         'red'
         >>> Color("yellow")

@@ -3,7 +3,7 @@
 #  Licensed under the MIT License (https://opensource.org/license/mit).
 
 """
-xpytools.types.cast
+xpytools.types.xcast
 -------------------
 Safe type conversion helpers (`as_*`).
 
