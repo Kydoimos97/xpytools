@@ -20,29 +20,29 @@ def test_top_level_imports():
 
     # Basic sanity checks
     assert hasattr(mod, "xtool")
-    assert hasattr(mod, "check")
-    assert hasattr(mod, "cast")
-    assert hasattr(mod, "literal")
+    assert hasattr(mod, "xcheck")
+    assert hasattr(mod, "xcast")
+    assert hasattr(mod.xtype, "choice")
     assert hasattr(mod, "xtype")
-    assert hasattr(mod, "decorators")
+    assert hasattr(mod, "xdeco")
 
     # Verify submodules load properly
     importlib.import_module("xpytools.xtool")
     importlib.import_module("xpytools.xtool")
 
     # Internal integrity
-    xpyt = mod.xpyt
-    assert hasattr(xpyt, "txt")
-    assert hasattr(xpyt, "df")
-    assert hasattr(xpyt, "img")
-    assert hasattr(xpyt, "sql")
-    assert hasattr(xpyt, "xpyt_pydantic")
+    xtool = mod.xtool
+    assert hasattr(xtool, "txt")
+    assert hasattr(xtool, "df")
+    assert hasattr(xtool, "img")
+    assert hasattr(xtool, "sql")
+    assert hasattr(xtool, "xpyt_pydantic")
 
     # Sanity checks for expected callable objects
-    assert callable(xpyt.txt.pad)
-    assert callable(xpyt.txt.truncate)
-    assert callable(xpyt.df.lookup)
-    assert callable(xpyt.img.load)
+    assert callable(xtool.txt.pad)
+    assert callable(xtool.txt.truncate)
+    assert callable(xtool.df.lookup)
+    assert callable(xtool.img.load)
 
 
 def test_internal_utils_structure():
@@ -53,6 +53,6 @@ def test_internal_utils_structure():
         assert hasattr(utils, sub), f"Missing {sub} in xpytools.xtool"
 
     # Consistency between xtool and xtool
-    xpyt = importlib.import_module("xpytools.xtool")
+    xtool = importlib.import_module("xpytools.xtool")
     for sub in ("txt", "df", "img", "sql", "xpyt_pydantic"):
-        assert getattr(xpyt, sub) is getattr(utils, sub)
+        assert getattr(xtool, sub) is getattr(utils, sub)

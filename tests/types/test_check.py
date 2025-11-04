@@ -8,7 +8,7 @@ class TestPrimitiveChecks:
     """Tests for is_int, is_float, is_bool, is_str, is_bytes"""
 
     def test_is_int(self):
-        from xpytools.xtype.check import is_int
+        from xpytools.xtype.xcheck import is_int
 
         assert is_int(42)
         assert is_int(-100)
@@ -21,7 +21,7 @@ class TestPrimitiveChecks:
         assert not is_int("3.14", allow_str=True)
 
     def test_is_float(self):
-        from xpytools.xtype.check import is_float
+        from xpytools.xtype.xcheck import is_float
 
         assert is_float(3.14)
         assert is_float(-2.5)
@@ -33,7 +33,7 @@ class TestPrimitiveChecks:
         assert not is_float("not a number", allow_str=True)
 
     def test_is_bool(self):
-        from xpytools.xtype.check import is_bool
+        from xpytools.xtype.xcheck import is_bool
 
         assert is_bool(True)
         assert is_bool(False)
@@ -48,7 +48,7 @@ class TestPrimitiveChecks:
         assert not is_bool("maybe", allow_str=True)
 
     def test_is_str(self):
-        from xpytools.xtype.check import is_str
+        from xpytools.xtype.xcheck import is_str
 
         assert is_str("hello")
         assert is_str("")
@@ -59,7 +59,7 @@ class TestPrimitiveChecks:
         assert not is_str(None)
 
     def test_is_bytes(self):
-        from xpytools.xtype.check import is_bytes
+        from xpytools.xtype.xcheck import is_bytes
 
         assert is_bytes(b"hello")
         assert is_bytes(bytearray(b"world"))
@@ -71,7 +71,7 @@ class TestComplexChecks:
     """Tests for is_dict, is_list_like, is_numeric"""
 
     def test_is_dict(self):
-        from xpytools.xtype.check import is_dict
+        from xpytools.xtype.xcheck import is_dict
 
         assert is_dict({"a": 1})
         assert is_dict({})
@@ -81,7 +81,7 @@ class TestComplexChecks:
         assert not is_dict("dict")
 
     def test_is_list_like(self):
-        from xpytools.xtype.check import is_list_like
+        from xpytools.xtype.xcheck import is_list_like
 
         assert is_list_like([1, 2, 3])
         assert is_list_like((1, 2))
@@ -93,7 +93,7 @@ class TestComplexChecks:
         assert not is_list_like(123)
 
     def test_is_numeric(self):
-        from xpytools.xtype.check import is_numeric
+        from xpytools.xtype.xcheck import is_numeric
 
         assert is_numeric(42)
         assert is_numeric(3.14)
@@ -107,7 +107,7 @@ class TestJsonChecks:
     """Tests for is_json, is_json_like"""
 
     def test_is_json(self):
-        from xpytools.xtype.check import is_json
+        from xpytools.xtype.xcheck import is_json
 
         assert is_json({"a": 1})
         assert is_json([1, 2, 3])
@@ -115,7 +115,7 @@ class TestJsonChecks:
         assert not is_json(42)
 
     def test_is_json_like(self):
-        from xpytools.xtype.check import is_json_like
+        from xpytools.xtype.xcheck import is_json_like
 
         assert is_json_like({"a": 1})
         assert is_json_like([1, 2, 3])
@@ -129,7 +129,7 @@ class TestDatetimeChecks:
     """Tests for is_datetime, is_datetime_like"""
 
     def test_is_datetime(self):
-        from xpytools.xtype.check import is_datetime
+        from xpytools.xtype.xcheck import is_datetime
 
         now = datetime.now()
         assert is_datetime(now)
@@ -137,7 +137,7 @@ class TestDatetimeChecks:
         assert not is_datetime(1234567890)
 
     def test_is_datetime_like(self):
-        from xpytools.xtype.check import is_datetime_like
+        from xpytools.xtype.xcheck import is_datetime_like
 
         now = datetime.now()
         assert is_datetime_like(now)
@@ -151,17 +151,17 @@ class TestNullChecks:
     """Tests for is_none"""
 
     def test_is_none_python_none(self):
-        from xpytools.xtype.check import is_none
+        from xpytools.xtype.xcheck import is_none
 
         assert is_none(None)
 
     def test_is_none_float_nan(self):
-        from xpytools.xtype.check import is_none
+        from xpytools.xtype.xcheck import is_none
 
         assert is_none(float('nan'))
 
     def test_is_none_string_variants(self):
-        from xpytools.xtype.check import is_none
+        from xpytools.xtype.xcheck import is_none
 
         assert is_none("None")
         assert is_none("null")
@@ -178,7 +178,7 @@ class TestNullChecks:
             )
     def test_is_none_numpy(self):
         import numpy as np
-        from xpytools.xtype.check import is_none
+        from xpytools.xtype.xcheck import is_none
 
         assert is_none(np.nan)
         assert is_none(np.float64('nan'))
@@ -189,13 +189,13 @@ class TestNullChecks:
             )
     def test_is_none_pandas(self):
         import pandas as pd
-        from xpytools.xtype.check import is_none
+        from xpytools.xtype.xcheck import is_none
 
         assert is_none(pd.NA)
         assert is_none(pd.NaT)
 
     def test_is_none_not_null(self):
-        from xpytools.xtype.check import is_none
+        from xpytools.xtype.xcheck import is_none
 
         assert not is_none(0)
         assert not is_none(False)
@@ -208,7 +208,7 @@ class TestUuidChecks:
     """Tests for is_uuid, is_uuid_like"""
 
     def test_is_uuid(self):
-        from xpytools.xtype.check import is_uuid
+        from xpytools.xtype.xcheck import is_uuid
 
         uid = uuid4()
         assert is_uuid(uid)
@@ -216,7 +216,7 @@ class TestUuidChecks:
         assert not is_uuid("not-a-uuid")
 
     def test_is_uuid_like(self):
-        from xpytools.xtype.check import is_uuid_like
+        from xpytools.xtype.xcheck import is_uuid_like
 
         uid = uuid4()
         assert is_uuid_like(uid)
@@ -230,14 +230,14 @@ class TestBase64Check:
     """Tests for is_base64"""
 
     def test_is_base64_valid(self):
-        from xpytools.xtype.check import is_base64
+        from xpytools.xtype.xcheck import is_base64
         import base64
 
         valid = base64.b64encode(b"hello world" * 10).decode()
         assert is_base64(valid)
 
     def test_is_base64_with_data_uri(self):
-        from xpytools.xtype.check import is_base64
+        from xpytools.xtype.xcheck import is_base64
         import base64
 
         b64 = base64.b64encode(b"test" * 10).decode()
@@ -245,7 +245,7 @@ class TestBase64Check:
         assert is_base64(data_uri)
 
     def test_is_base64_invalid(self):
-        from xpytools.xtype.check import is_base64
+        from xpytools.xtype.xcheck import is_base64
 
         assert not is_base64("hello")
         assert not is_base64("not base64!")
@@ -262,7 +262,7 @@ class TestDataframeCheck:
             )
     def test_is_df_with_pandas(self):
         import pandas as pd
-        from xpytools.xtype.check import is_df
+        from xpytools.xtype.xcheck import is_df
 
         df = pd.DataFrame({"a": [1, 2, 3]})
         assert is_df(df)
@@ -270,7 +270,7 @@ class TestDataframeCheck:
         assert not is_df({"a": [1, 2, 3]})
 
     def test_is_df_without_pandas(self):
-        from xpytools.xtype.check import is_df
+        from xpytools.xtype.xcheck import is_df
         import sys
 
         # Temporarily remove pandas if it exists
@@ -289,12 +289,12 @@ class TestIsEmpty:
     """Tests for is_empty"""
 
     def test_is_empty_none(self):
-        from xpytools.xtype.check import is_empty
+        from xpytools.xtype.xcheck import is_empty
 
         assert is_empty(None)
 
     def test_is_empty_collections(self):
-        from xpytools.xtype.check import is_empty
+        from xpytools.xtype.xcheck import is_empty
 
         assert is_empty([])
         assert not is_empty([1, 2])
@@ -309,7 +309,7 @@ class TestIsEmpty:
             )
     def test_is_empty_dataframe(self):
         import pandas as pd
-        from xpytools.xtype.check import is_empty
+        from xpytools.xtype.xcheck import is_empty
 
         empty_df = pd.DataFrame()
         full_df = pd.DataFrame({"a": [1, 2]})

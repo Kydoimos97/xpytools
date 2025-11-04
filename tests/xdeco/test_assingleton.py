@@ -5,7 +5,7 @@ class TestAsSingleton:
     """Tests for @asSingleton decorator"""
 
     def test_singleton_creates_single_instance(self):
-        from xpytools.decorators import asSingleton
+        from xpytools.xdeco import asSingleton
 
         @asSingleton
         class MyClass:
@@ -20,7 +20,7 @@ class TestAsSingleton:
         assert obj2.value == 10
 
     def test_singleton_preserves_class_metadata(self):
-        from xpytools.decorators import asSingleton
+        from xpytools.xdeco import asSingleton
 
         @asSingleton
         class MyClass:
@@ -31,7 +31,7 @@ class TestAsSingleton:
         assert MyClass.__doc__ == "Test docstring"
 
     def test_singleton_raises_on_new_override(self):
-        from xpytools.decorators import asSingleton
+        from xpytools.xdeco import asSingleton
 
         with pytest.raises(Exception, match="Singleton violation"):
             @asSingleton
@@ -40,7 +40,7 @@ class TestAsSingleton:
                     pass
 
     def test_singleton_raises_on_cls_instance_attr(self):
-        from xpytools.decorators import asSingleton
+        from xpytools.xdeco import asSingleton
 
         with pytest.raises(Exception, match="Singleton violation"):
             @asSingleton
