@@ -3,7 +3,7 @@
 #  Licensed under the MIT License (https://opensource.org/license/mit).
 
 """
-xpytools.types.common
+xpytools.xtype.common
 ---------------------
 Commonly used type aliases and generics.
 
@@ -31,83 +31,114 @@ from typing import (
     Tuple,
     TypeVar,
     Union,
-    )
+)
 
 # ---------------------------------------------------------------------------
 # Generic type variables
 # ---------------------------------------------------------------------------
 
-T = TypeVar("T")
-K = TypeVar("K")
-V = TypeVar("V")
+T: TypeVar = TypeVar("T")
+"""Generic type variable for arbitrary data type."""
+
+K: TypeVar = TypeVar("K")
+"""Type variable for dictionary keys."""
+
+V: TypeVar = TypeVar("V")
+"""Type variable for dictionary values."""
 
 # ---------------------------------------------------------------------------
 # String & path related
 # ---------------------------------------------------------------------------
 
-PathLike = Union[str, Path]
-OptPath = Optional[PathLike]
-OptStr = Optional[str]
+PathLike: type = Union[str, Path]
+"""Type alias for file system paths — accepts ``str`` or ``pathlib.Path``."""
+
+OptPath: type = Optional[PathLike]
+"""Optional path type that may be ``None``."""
+
+OptStr: type = Optional[str]
+"""Optional string type that may be ``None``."""
 
 # ---------------------------------------------------------------------------
 # Collection shortcuts
 # ---------------------------------------------------------------------------
 
-DictStrAny = Dict[str, Any]
-DictAny = Dict[Any, Any]
-DictStrStr = Dict[str, str]
-DictStrT = Dict[str, T]
-ListStr = List[str]
-ListAny = List[Any]
-TupleStr = Tuple[str, ...]
-IterableStr = Iterable[str]
-SequenceStr = Sequence[str]
+DictStrAny: type = Dict[str, Any]
+"""Dictionary with string keys and any values."""
+
+DictAny: type = Dict[Any, Any]
+"""Dictionary with arbitrary key and value types."""
+
+DictStrStr: type = Dict[str, str]
+"""Dictionary with string keys and string values."""
+
+DictStrT: type = Dict[str, T]
+"""Generic dictionary mapping strings to type ``T``."""
+
+ListStr: type = List[str]
+"""List of strings."""
+
+ListAny: type = List[Any]
+"""List of arbitrary objects."""
+
+TupleStr: type = Tuple[str, ...]
+"""Tuple containing only strings."""
+
+IterableStr: type = Iterable[str]
+"""Iterable that yields strings."""
+
+SequenceStr: type = Sequence[str]
+"""Sequence (list, tuple, etc.) of strings."""
 
 # ---------------------------------------------------------------------------
 # Function and callable types
 # ---------------------------------------------------------------------------
 
-Func = Callable[..., Any]
-OptFunc = Optional[Func]
+Func: type = Callable[..., Any]
+"""Generic callable that accepts arbitrary arguments."""
+
+OptFunc: type = Optional[Func]
+"""Optional callable that may be ``None``."""
 
 # ---------------------------------------------------------------------------
 # Numeric / scalar
 # ---------------------------------------------------------------------------
 
-Number = Union[int, float]
-OptNumber = Optional[Number]
-NumericIterable = Iterable[Number]
+Number: type = Union[int, float]
+"""Union of integer and float types."""
+
+OptNumber: type = Optional[Number]
+"""Optional numeric type that may be ``None``."""
+
+NumericIterable: type = Iterable[Number]
+"""Iterable that yields numeric values (ints or floats)."""
 
 # ---------------------------------------------------------------------------
 # JSON-like convenience
 # ---------------------------------------------------------------------------
 
-JSONPrimitive = Union[str, int, float, bool, None]
-JSONArray = List["JSONValue"]
-JSONObject = Dict[str, "JSONValue"]
-JSONValue = Union[JSONPrimitive, JSONArray, JSONObject]
+JSONPrimitive: type = Union[str, int, float, bool, None]
+"""Primitive JSON-compatible scalar value."""
+
+JSONArray: type = List["JSONValue"]
+"""JSON array represented as a list of nested JSON values."""
+
+JSONObject: type = Dict[str, "JSONValue"]
+"""JSON object represented as a dictionary of string keys."""
+
+JSONValue: type = Union[JSONPrimitive, JSONArray, JSONObject]
+"""Recursive union type representing any valid JSON value."""
 
 # ---------------------------------------------------------------------------
 # Exports
 # ---------------------------------------------------------------------------
 
 __all__ = [
-        # --- Generic ---
-        "T", "K", "V",
-
-        # --- Paths / strings ---
-        "PathLike", "OptPath", "OptStr",
-
-        # --- Collections ---
-        "DictStrAny", "DictAny", "DictStrStr", "DictStrT",
-        "ListStr", "ListAny", "TupleStr", "IterableStr", "SequenceStr",
-
-        # --- Functions ---
-        "Func", "OptFunc",
-
-        # --- Numeric ---
-        "Number", "OptNumber", "NumericIterable",
-
-        # --- JSON ---
-        "JSONPrimitive", "JSONArray", "JSONObject", "JSONValue",
-        ]
+    "T", "K", "V",
+    "PathLike", "OptPath", "OptStr",
+    "DictStrAny", "DictAny", "DictStrStr", "DictStrT",
+    "ListStr", "ListAny", "TupleStr", "IterableStr", "SequenceStr",
+    "Func", "OptFunc",
+    "Number", "OptNumber", "NumericIterable",
+    "JSONPrimitive", "JSONArray", "JSONObject", "JSONValue",
+]
