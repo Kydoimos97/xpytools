@@ -1,5 +1,10 @@
 # xpytools
 
+[![Tests](https://github.com/WrenchAI/xpytools/actions/workflows/test.yml/badge.svg)](https://github.com/WrenchAI/xpytools/actions/workflows/test.yml)
+[![Coverage](https://codecov.io/gh/WrenchAI/xpytools/branch/main/graph/badge.svg)](https://codecov.io/gh/WrenchAI/xpytools)
+[![Python](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
+[![License](https://img.shields.io/badge/license-MIT-yellow.svg)](LICENSE)
+
 **Python utilities for safe type handling, data manipulation, and runtime validation.**
 
 A collection of defensive programming tools that handle messy real-world data: inconsistent nulls, malformed inputs, timezone chaos, and format conversions. Built for data pipelines, ETL workflows, and APIs where you can't trust your inputs.
@@ -26,26 +31,38 @@ xpytools provides multiple import patterns. Choose based on your preference:
 ### Recommended Imports
 
 **Note: Be cautious with alias overwrites of different packages. 
-The preferred import method is `from xpytools import xpyt` as this ensure uniqueness.
-Additionally this enforces prepending the targeted data type: `xpyt.txt.clean()` vs `clean()` which is ambigious.
+The preferred import method is `from xpytools import xtool` as this ensures uniqueness.
+Additionally this enforces prepending the targeted data type: `xtool.txt.clean()` vs `clean()` which is ambiguous.
 
 
 ```python
 # Type system shortcuts (most concise)
-from xpytools import cast, check, literal
+from xpytools import xcast, xcheck
+from xpytools.xtype import strChoice, intChoice, floatChoice, anyChoice
 
-result = cast.as_int("42")
-valid = check.is_none(value)
-Status = literal.StrLiteral("active", "inactive")
+result = xcast.as_int("42")
+valid = xcheck.is_none(value)
+Status = strChoice("active", "inactive")
+Code = intChoice(200, 404, 500)
 ```
 
 ```python
-# Utilities via xpyt alias (preferred for df/img/txt/sql)
-from xpytools import xpyt
+# Utilities via xtool (preferred for df/img/txt/sql)
+from xpytools import xtool
 
-xpyt.df.normalize_column_names(df)
-xpyt.img.load("image.png")
-xpyt.txt.clean(text)
+xtool.df.normalize_column_names(df)
+xtool.img.load("image.png")
+xtool.txt.clean(text)
+```
+
+```python
+# Decorators
+from xpytools import xdeco
+
+@xdeco.requireModules(["pandas"])
+@xdeco.asSingleton
+class DataProcessor:
+    pass
 ```
 
 ### Alternative Imports
@@ -54,34 +71,41 @@ xpyt.txt.clean(text)
 # Full module imports
 from xpytools import xtype
 
-xtype.cast.as_int("42")
-xtype.check.is_none(value)
+xtype.xcast.as_int("42")
+xtype.xcheck.is_none(value)
 ```
 
 ```python
-# Highly discouraged: Direct submodule imports (bypasses shortcuts)
-from xpytools.xtype import cast, check
+# Direct submodule imports
 from xpytools.xtool import df, txt, img
-
-# Note: Use 'xtool' in direct imports, 'xpyt' only works at package level
+from xpytools.xtype import xcast, xcheck
 ```
 
 ```python
 # Deep imports (for specific functions)
-from xpytools.xtype.check import is_none, is_int
+from xpytools.xtype.xcheck import is_none, is_int
+from xpytools.xtype.choice import strChoice, intChoice
 ```
 
 ### Import Gotchas
 
-❌ **Don't do this** - `xpyt` is an alias at package level only:
+❌ **Don't do this** - Mixing import levels can be confusing:
 ```python
-from xpytools.xpyt import df  # ImportError: No module named 'xpytools.xpyt'
+from xpytools.xtool import xtool  # Redundant - xtool importing itself
 ```
 
 ✅ **Do this instead**:
 ```python
-from xpytools import xpyt  # Works
-xpyt.df.normalize_column_names(df)
+from xpytools import xtool  # Works - clean import
+xtool.df.normalize_column_names(df)
+
+# Or for type system:
+from xpytools import xcast, xcheck
+from xpytools.xtype import strChoice
+
+result = xcast.as_int("42")
+valid = xcheck.is_none(value)
+Color = strChoice("red", "green", "blue")
 ```
 
 ---
@@ -90,7 +114,7 @@ xpyt.df.normalize_column_names(df)
 
 ### Core Modules
 
-#### `xpytools.cast` - Safe Type Conversions
+#### `xpytools.xcast` - Safe Type Conversions
 Convert between types without crashing. Returns `None` on failure instead of raising exceptions.
 
 - **Primitives**: `as_int()`, `as_float()`, `as_bool()`, `as_str()`, `as_bytes()`
@@ -100,7 +124,7 @@ Convert between types without crashing. Returns `None` on failure instead of rai
 - **Null normalization**: `as_none()` (handles `None`, `NaN`, `"null"`, `""`, etc.)
 - **Primitives export**: `to_primitives()` (recursively convert dataclasses, Enums, Pydantic models, NumPy, pandas to JSON-safe types)
 
-#### `xpytools.check` - Runtime Type Validation
+#### `xpytools.xcheck` - Runtime Type Validation
 Boolean validators for defensive programming. All `is_*` functions return `True`/`False`.
 
 - **Primitives**: `is_int()`, `is_float()`, `is_bool()`, `is_str()`, `is_bytes()`
@@ -110,13 +134,13 @@ Boolean validators for defensive programming. All `is_*` functions return `True`
 - **Null detection**: `is_none()` (detects `None`, `NaN`, `pd.NA`, `"null"`, `""`, and 20+ variants)
 - **Special**: `is_uuid()`, `is_uuid_like()`, `is_base64()`, `is_df()`
 
-#### `xpytools.literal` - Runtime-Validated Enums
+#### `xpytools.choice` - Runtime-Validated Enums
 Create constrained types without full Enum classes. Integrates with Pydantic v2.
 
-- `StrLiteral("red", "green", "blue")` - constrained strings
-- `IntLiteral(200, 404, 500)` - constrained integers
-- `FloatLiteral(0.1, 0.01)` - constrained floats
-- `AnyTLiteral("foo", 1, None)` - mixed-type literals
+- `strChoice("red", "green", "blue")` - constrained strings
+- `intChoice(200, 404, 500)` - constrained integers
+- `floatChoice(0.1, 0.01)` - constrained floats
+- `anyChoice("foo", 1, None)` - mixed-type literals
 
 #### `xpytools.xtype` - Extended Types
 Specialized types and containers.
@@ -126,9 +150,9 @@ Specialized types and containers.
 
 ---
 
-### Utility Modules (`xpytools.xpyt`)
+### Utility Modules (`xpytools.xtool`)
 
-#### `xpyt.df` - DataFrame Helpers
+#### `xtool.df` - DataFrame Helpers
 Pandas utilities for cleaning and transforming data.
 
 - `normalize_column_names()` - Convert to lowercase snake_case, handle duplicates
@@ -136,14 +160,14 @@ Pandas utilities for cleaning and transforming data.
 - `merge_fill()` - Merge DataFrames and fill missing values intelligently
 - `replace_none_like()` - Normalize all null representations to Python `None`
 
-#### `xpyt.img` - Image I/O
+#### `xtool.img` - Image I/O
 Unified interface for loading images from any source.
 
 - `load()` - Load from file path, URL, bytes, or base64
 - Format converters: `to_bytes()`, `to_base64()`, `from_bytes()`, `from_base64()`
 - Transformations: `create_thumbnail()`, `resize()`
 
-#### `xpyt.txt` - Text Processing
+#### `xtool.txt` - Text Processing
 String manipulation and cleaning utilities.
 
 - `clean()` - Normalize text (with optional `cleantext` integration)
@@ -153,20 +177,20 @@ String manipulation and cleaning utilities.
 - `pad()` - Fixed-width padding (left/right/center)
 - `split_lines()` - Wrap text to fixed width
 
-#### `xpyt.sql` - SQL/DataFrame Bridge
+#### `xtool.sql` - SQL/DataFrame Bridge
 Prepare data for database insertion.
 
 - `prepare_dataframe()` - Clean DataFrames for SQL (convert lists to PostgreSQL arrays, normalize nulls)
 - `to_pg_array()` - Convert Python lists to PostgreSQL array literals
 
-#### `xpyt.pydantic` - Pydantic Extensions
+#### `xtool.pydantic` - Pydantic Extensions
 Enhanced Pydantic model features.
 
 - `TypeSafeAccessMixin` - Auto-serialize UUIDs, Enums, datetimes, nested models in Pydantic
 
 ---
 
-### Decorators
+### Decorators (`xpytools.xdeco`)
 
 #### `@requireModules(["pandas", "numpy"])`
 Gracefully skip function execution when optional dependencies are missing. Returns `None` or raises `ImportError` depending on configuration.
@@ -196,21 +220,79 @@ Enforce singleton pattern on class definitions. Prevents multiple instances.
 
 ---
 
+## Usage Examples
+
+### Type System
+```python
+from xpytools import xcast, xcheck
+from xpytools.xtype import strChoice, intChoice
+
+# Safe conversions
+result = xcast.as_int("42")         # 42
+bad_result = xcast.as_int("abc")    # None
+
+# Runtime validation  
+valid = xcheck.is_none(value)       # True/False
+is_number = xcheck.is_int("123")    # True
+
+# Constrained types
+Color = strChoice("red", "green", "blue")
+StatusCode = intChoice(200, 404, 500)
+
+color = Color("red")                # "red"
+# Color("yellow")                   # ValueError
+```
+
+### Utilities
+```python
+from xpytools import xtool
+
+# DataFrame operations
+xtool.df.normalize_column_names(df)
+safe_value = xtool.df.lookup(df, "column", "key")
+
+# Text processing
+clean_text = xtool.txt.clean("messy   text\n\n")
+truncated = xtool.txt.truncate("long text", 10)
+
+# Image handling
+img = xtool.img.load("path/to/image.png")
+img_bytes = xtool.img.to_bytes(img, format="PNG")
+```
+
+### Decorators
+```python
+from xpytools import xdeco
+
+@xdeco.requireModules(["pandas", "numpy"])
+def process_data():
+    import pandas as pd
+    import numpy as np
+    return pd.DataFrame(np.random.randn(100, 4))
+
+@xdeco.asSingleton
+class DatabaseConnection:
+    def __init__(self):
+        self.conn = "connection"
+```
+
+---
+
 ## Project Structure
 
 ```
 xpytools/
-├── xtype/              # Type system (cast, check, literal)
-│   ├── cast/           # Safe conversions (as_*)
-│   ├── check/          # Validators (is_*)
-│   └── literal/        # Runtime-validated pseudo-Literals
-├── xtool/              # Utilities (aliased as xpyt)
+├── xtype/              # Type system (xcast, xcheck, choice)
+│   ├── xcast/          # Safe conversions (as_*)
+│   ├── xcheck/         # Validators (is_*)
+│   └── choice/         # Runtime-validated pseudo-Literals
+├── xtool/              # Utilities 
 │   ├── df/             # DataFrame helpers
 │   ├── img/            # Image I/O
 │   ├── txt/            # Text processing
 │   ├── sql/            # SQL/DataFrame bridge
 │   └── pydantic/       # Pydantic extensions
-└── decorators/         # @requireModules, @asSingleton
+└── xdeco/              # Decorators (@requireModules, @asSingleton)
 ```
 
 ---
@@ -223,8 +305,6 @@ pytest tests/ -v
 
 # With coverage
 pytest tests/ --cov=xpytools --cov-report=term-missing
-
-# Current: 142 tests, 63% coverage
 ```
 
 ---
