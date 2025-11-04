@@ -10,24 +10,11 @@ General-purpose Python utilities
 
 from __future__ import annotations
 
-import sys as _sys
-
 # ----------------------------------------------------------------------
 # Normal imports
 # ----------------------------------------------------------------------
-from . import xtype, decorators
-from . import xtool as xpyt
+from . import xtype, xdeco, xtool
+from .xtype import xcast, xcheck
+from .xtype.choice import strChoice, floatChoice, intChoice, anyChoice
 
-check = xtype.check
-cast = xtype.cast
-literal = xtype.literal
-
-# Register for IDE/module discovery
-# _sys.modules[__name__ + ".xtool"] = xtool
-
-_sys.modules[__name__ + ".check"] = check
-_sys.modules[__name__ + ".cast"] = cast
-_sys.modules[__name__ + ".literal"] = literal
-_sys.modules[__name__ + ".xtool"] = xpyt
-
-__all__ = ["check", "cast", "literal", "xtype", "decorators", "xpyt"]
+__all__ = ["xcheck", "xcast", "xtype", "xdeco", "xtool", "strChoice", 'floatChoice', 'intChoice', 'anyChoice']
