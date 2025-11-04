@@ -1,16 +1,30 @@
-site_name: xpytools
+site_name: xPyTools
 site_url: !ENV READTHEDOCS_CANONICAL_URL
 site_description: xpytools – Python utilities for safe type handling, data manipulation, and runtime validation.
 site_author: Kydoimos97
 
 nav:
   - Home: index.md
-  - Installation: installation.md
-  - API Reference:
-    - Overview: api/index.md
-    - Type System: api/xtype.md
-    - Utilities: api/xtool.md
-    - Decorators: api/xdeco.md
+  - Overview: api/index.md
+  - xType - Type System:
+    - xCast: xtype/xcast.md
+    - xCheck: xtype/xcheck.md
+    - choice: xtype/choice.md
+    - types: xtype/types.md
+    - aliases: xtype/common.md
+  - xTool - Utilities:
+    - DataFrame Operations: xtool/df.md
+    - Image Processing: xtool/img.md
+    - Text Processing: xtool/txt.md
+    - SQL Bridge: xtool/sql.md
+    - Pydantic Extensions: xtool/pydantic.md
+  - xDeco - Decorators:
+    - requireModules: xdeco/requireModules.md
+    - asSingleton: xdeco/asSingleton.md
+  - Help:
+    -  installation: installation.md
+
+
 
 extra_css:
   - assets/stylesheets/mkdocstrings-sections.css
@@ -38,15 +52,15 @@ theme:
   palette:
     - media: "(prefers-color-scheme: light)"
       scheme: default
-      primary: grey
-      accent: red
+      primary: blue
+      accent: light-blue
       toggle:
         icon: material/weather-night
         name: Switch to dark mode
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
       primary: red
-      accent: grey
+      accent: orange
       toggle:
         icon: material/weather-sunny
         name: Switch to light mode
@@ -85,15 +99,13 @@ plugins:
             show_docstring_description: true
 
             # ─── Visibility Controls ──────────────────────────────────────
-            members: true                   # show public members by default
-            inherited_members: false
-            members_order: source
             filters:
-              - "!^_"                       # hide private
-              - "!^__"                      # hide dunder
-              - "!^__all__$"                # hide __all__
-              - "!^__version__$"            # hide version constants
-              - "!^__author__$"             # hide author tags
+              # Keep only top-level public functions
+              - "!^_"              # hide private
+              - "!^__"             # hide dunders
+              - "!^__all__$"
+              - "!^__version__$"
+              - "!^__author__$"
 
             # ─── Rendering Tweaks ─────────────────────────────────────────
             show_submodules: true            # automatically render submodules
@@ -125,7 +137,7 @@ markdown_extensions:
   - pymdownx.keys
   - toc:
       permalink: true
-      toc_depth: 4
+      toc_depth: 3
   - attr_list
   - md_in_html
   - pymdownx.tasklist:

@@ -1,9 +1,9 @@
 # xpytools
 
-[![Tests](https://github.com/WrenchAI/xpytools/actions/workflows/test.yml/badge.svg)](https://github.com/WrenchAI/xpytools/actions/workflows/test.yml)
-[![Coverage](https://codecov.io/gh/WrenchAI/xpytools/branch/main/graph/badge.svg)](https://codecov.io/gh/WrenchAI/xpytools)
+[![Tests](https://github.com/Kydoimos97/xpytools/actions/workflows/test.yml/badge.svg)](https://github.com/Kydoimos97/xpytools/actions/workflows/test.yml)
+[![Coverage](https://codecov.io/gh/Kydoimos97/xpytools/branch/main/graph/badge.svg)](https://codecov.io/gh/Kydoimos97/xpytools)
 [![Python](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
-[![License](https://img.shields.io/badge/license-MIT-yellow.svg)](LICENSE)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
 **Python utilities for safe type handling, data manipulation, and runtime validation.**
 
@@ -183,7 +183,7 @@ Prepare data for database insertion.
 - `prepare_dataframe()` - Clean DataFrames for SQL (convert lists to PostgreSQL arrays, normalize nulls)
 - `to_pg_array()` - Convert Python lists to PostgreSQL array literals
 
-#### `xtool.pydantic` - Pydantic Extensions
+#### `xtool.xpyt_pydantic` - Pydantic Extensions
 Enhanced Pydantic model features.
 
 - `TypeSafeAccessMixin` - Auto-serialize UUIDs, Enums, datetimes, nested models in Pydantic
@@ -291,7 +291,7 @@ xpytools/
 │   ├── img/            # Image I/O
 │   ├── txt/            # Text processing
 │   ├── sql/            # SQL/DataFrame bridge
-│   └── pydantic/       # Pydantic extensions
+│   └── xpyt_pydantic/       # Pydantic extensions
 └── xdeco/              # Decorators (@requireModules, @asSingleton)
 ```
 
