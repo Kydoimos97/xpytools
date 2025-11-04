@@ -3,9 +3,9 @@
 #  Licensed under the MIT License (https://opensource.org/license/mit).
 
 """
-xpytools.decorators
+xpytools.xdeco
 -------------------
-Lightweight decorators for runtime safety and object management.
+Lightweight xdeco for runtime safety and object management.
 
 Provides:
     • requireModules(module_names) → raises or skips when dependencies are missing

@@ -40,7 +40,7 @@ def requireModules(
     Parameters
     ----------
     modules : Iterable[str]
-        List of module names to check (e.g., ["pandas", "numpy"]).
+        List of module names to xcheck (e.g., ["pandas", "numpy"]).
     exc_raise : bool, default=False
         Raise ImportError if one or more modules are missing.
     return_none : bool, default=True
