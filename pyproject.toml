@@ -13,7 +13,7 @@ readme = "README.md"
 license = { file = "LICENSE" }
 requires-python = ">=3.11"
 authors = [
-    { name = "Willem van der Schans", email = "willemvanderschans97+dev@gmail.com " }  # optional
+    { name = "Kydoimos97", email = "willemvanderschans97+dev@gmail.com " }  # optional
 ]
 classifiers = [
     "Intended Audience :: Developers",
@@ -49,6 +49,11 @@ dev = [
     "pytest-cov>=7.0.0",
     "pytest-sugar>=0.9.7",
     "pytest-xdist>=3.3.0",
+    "ruff>=0.14.3",
+]
+
+mkdocs = [
+
 ]
 
 # 🚀 All-in-one utility/data group (runtime helpers + analysis libs)
@@ -113,3 +118,14 @@ omit = [
 ]
 show_missing = true
 skip_empty = true
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
