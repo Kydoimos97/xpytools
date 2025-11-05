@@ -41,43 +41,86 @@ include = ["xpytools", "pyproject.toml", "README.md", "LICENSE", 'uv.lock']
 packages = ["xpytools"]
 
 [dependency-groups]
-# Development dependencies for testing, linting, typing
+
+# Core development / tooling
+
 dev = [
-    "mypy>=1.18.2",
-    "mypy-boto3-s3>=1.40.61",
     "pytest>=8.4.2",
     "pytest-cov>=7.0.0",
     "pytest-sugar>=0.9.7",
     "pytest-xdist>=3.3.0",
-    "ruff>=0.14.3",
+    "mypy>=1.18.2",
+    "mypy-boto3-s3>=1.40.61",
+    "ruff>=0.14.3"
 ]
 
-mkdocs = [
 
-]
+# DataFrame and numeric utilities
 
-# 🚀 All-in-one utility/data group (runtime helpers + analysis libs)
-all = [
-    # Data processing / analysis
+df = [
     "pandas>=2.3.3",
-    "numpy>=1.24.0",
-    "clean-text>=0.6.0",
-
-    # Imaging / text / file helpers
-    "pillow>=12.0.0",
-
-    # Tokenization / LLM utils
-    "tiktoken>=0.12.0",
-
-    # Core runtime deps
-    "requests>=2.32,<3.0",
-    "pydantic>=2.12.3",
+    "numpy==1.26.4"  # pinned for stability
 ]
+
+
+# Imaging / network helpers
+
+img = [
+    "pillow>=12.0.0",
+    "requests>=2.32,<3.0"
+]
+
+
+# Text / string cleaning
+
+txt = [
+    "clean-text>=0.6.0"
+]
+
+
+# Schema / validation utilities
+
+pydantic = [
+    "pydantic>=2.12.3"
+]
+
+
+# Documentation
+
+docs = [
+    "mkdocs>=1.6.0",
+    "mkdocstrings[python]>=0.25.0",
+    "markdown-include>=0.8.0",
+    "mkdocs-material>=9.5.0",
+    "mkdocs-git-revision-date-localized-plugin>=1.2.0",
+    "ruff>=0.14.3"
+]
+
+
+# Client-facing aggregate (runtime-only)
+
+all = [
+    { include-group = "df" },
+    { include-group = "img" },
+    { include-group = "txt" },
+    { include-group = "pydantic" }
+]
+
+
+# Developer aggregate (full environment)
+
+dev-all = [
+    { include-group = "all" },
+    { include-group = "dev" },
+    { include-group = "docs" }
+]
+
+
 
 [tool.pytest.ini_options]
-# -----------------------------
+-
 # Test discovery and behavior
-# -----------------------------
+-
 testpaths = ["tests"]
 python_files = ["test_*.py"]
 python_classes = ["Test*"]

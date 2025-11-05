@@ -24,10 +24,15 @@ nav:
   - Help:
     -  installation: installation.md
 
-
-
 extra_css:
-  - assets/stylesheets/mkdocstrings-sections.css
+  - overrides/assets/stylesheets/mkdocstrings-body.css
+  - overrides/assets/stylesheets/mkdocstrings-doc.css
+  - overrides/assets/stylesheets/mkdocstrings-sections.css
+  - overrides/assets/stylesheets/mkdocstrings-collapsed.css
+
+extra_javascript:
+  - overrides/assets/javascripts/mkdocstrings_sections.js
+
 
 theme:
   name: material
@@ -45,10 +50,15 @@ theme:
     - toc.integrate           # integrates toc into sidebar
     - content.code.copy
     - content.code.annotate
+    - content.footnote.tooltips  # Hover footnotes instead of jumping
     - content.tabs.link
     - navigation.footer
     - search.highlight
     - search.suggest
+    - navigation.instant.prefetch  # Preloads pages on hover for faster navigation
+    - navigation.tabs             # Top-level sections become tabs
+    - navigation.tabs.sticky      # Tabs stay visible when scrolling
+    - toc.follow                  # Auto-highlights current section in TOC
   palette:
     - media: "(prefers-color-scheme: light)"
       scheme: default
@@ -81,23 +91,37 @@ plugins:
         python:
           options:
             # ─── Parsing & Docstring Style ────────────────────────────────
-            docstring_style: numpy          # or "google" if you prefer
-            docstring_section_style: table  # clean, compact layout
+            docstring_style: sphinx          # or "google" if you prefer
+            docstring_section_style: spacy  # clean, compact layout
             show_if_no_docstring: false     # hide undocumented members
 
             # ─── Structure & Layout ───────────────────────────────────────
-            show_source: true               # shows "Source code in ..." link
+            show_source: false               # shows "Source code in ..." link
             show_root_heading: true         # adds clear module heading
             show_root_toc_entry: true       # adds modules to page ToC
-            separate_signature: true        # cleaner function headers
-            show_signature_annotations: true
             merge_init_into_class: true     # includes __init__ params in class docs
             group_by_category: true         # groups functions/classes logically
             heading_level: 3                # H3 for API functions
-            show_bases: true                # lists base classes
-            line_length: 100                # wraps long signatures better
-            show_docstring_description: true
+            show_bases: false                # lists base classes
 
+
+            show_docstring_description: true
+            show_docstring_attributes: false
+            show_docstring_classes: false
+            show_docstring_modules: false
+            show_docstring_parameters: false
+
+            annotations_path: brief
+            line_length: 60                # wraps long signatures better
+            modernize_annotations: true
+            separate_signature: true
+            show_signature_annotations: true
+            show_attribute_values: true
+
+
+            show_root_full_path: false
+            show_root_members_full_path: false
+            show_object_full_path: false
             # ─── Visibility Controls ──────────────────────────────────────
             filters:
               # Keep only top-level public functions
@@ -108,10 +132,15 @@ plugins:
               - "!^__author__$"
 
             # ─── Rendering Tweaks ─────────────────────────────────────────
-            show_submodules: true            # automatically render submodules
+            show_submodules: false            # automatically render submodules
             show_symbol_type_heading: true   # adds small labels (function, class)
-            summary: true                    # compact summary table at top
-            parameter_headings: true         # adds small bold headers in params
+            show_symbol_type_toc: true
+            show_labels: false
+
+            summary: false
+            parameter_headings: false         # adds small bold headers in params
+            type_parameter_headings: true
+
             extra:
               load_external_modules: true    # allow introspection of installed deps
               heading_level_by_type:
@@ -122,27 +151,56 @@ plugins:
               # Newer mkdocstrings versions allow custom per-type heading levels
 
 markdown_extensions:
-  - admonition
-  - pymdownx.details
-  - pymdownx.superfences
+  # ─── Core Markdown Features ───────────────────────────────────────
+  - attr_list                    # Enables {: .class} attribute syntax
+  - md_in_html                   # Allows markdown inside HTML blocks
+  - footnotes                    # Enables footnote syntax [^1] (NEW)
+  - toc:
+      permalink: true
+      toc_depth: 3
+
+  # ─── Enhanced Blocks & Containers ─────────────────────────────────
+  - pymdownx.blocks.admonition:  # Better than basic admonition (NEW/UPGRADED)
+      types:
+        - note
+        - tip
+        - warning
+        - danger
+        - info
+        - check
+        - success
+        - failure
+  - pymdownx.blocks.details      # Better collapsible sections (NEW/UPGRADED)
+  - pymdownx.superfences:        # Code fences + custom fence support
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+
+  # ─── Code & Syntax Highlighting ───────────────────────────────────
   - pymdownx.highlight:
       anchor_linenums: true
       auto_title: true
       linenums: true
       linenums_style: pymdownx-inline
-  - pymdownx.inlinehilite
+  - pymdownx.inlinehilite        # Inline code highlighting
+  - pymdownx.snippets            # Include external files
+
+  # ─── Text Formatting ──────────────────────────────────────────────
+  - pymdownx.betterem            # Better emphasis handling (NEW)
+  - pymdownx.caret               # ^^superscript^^ and ^^underline^^ (NEW)
+  - pymdownx.mark                # ==highlight== text (NEW)
+  - pymdownx.tilde               # ~~strikethrough~~ and ~subscript~ (NEW)
+
+  # ─── Interactive Elements ─────────────────────────────────────────
   - pymdownx.tabbed:
-      alternate_style: true
-  - pymdownx.magiclink
-  - pymdownx.keys
-  - toc:
-      permalink: true
-      toc_depth: 3
-  - attr_list
-  - md_in_html
+      alternate_style: true      # Modern tab styling
   - pymdownx.tasklist:
-      custom_checkbox: true
-  - pymdownx.snippets
+      custom_checkbox: true      # Prettier checkboxes
+  - pymdownx.keys                # ++ctrl+alt+del++ keyboard keys
+
+  # ─── Links & References ───────────────────────────────────────────
+  - pymdownx.magiclink           # Auto-converts URLs to links
 
 extra:
   social:
